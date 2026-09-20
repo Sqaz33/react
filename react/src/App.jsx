@@ -20,11 +20,20 @@ function App() {
     setTodos(curTodos => [...curTodos, newTodo])
   }
 
+  function toggleTodo(id) {
+    setTodos(
+      curTodos => curTodos.map(
+        todo => todo.id === id ?
+          {...todo, completed: !todo.completed} :
+          todo
+    ))
+  }
+
   return (
     <main>
       <TodoHeader/>
       <TodoForm onAddTodo={addTodo}/>
-      <TodoList todos={todos}/>
+      <TodoList todos={todos} onToggleTodo={toggleTodo}/>
     </main>
   )
 }
