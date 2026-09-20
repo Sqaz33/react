@@ -1,19 +1,29 @@
 import TodoHeader from "./TodoHeader"
 import TodoForm from "./TodoForm"
 import TodoList from "./TodoList";
+import { useState } from "react";
 
 
 function App() {
-  const todos = [
+  const [todos, setTodos] = useState([
     { id: 1, title: 'Изучить JSX', completed: true },
     { id: 2, title: 'Разобраться с props', completed: false },
     { id: 3, title: 'Научиться работать со state', completed: false },
-  ];
+  ]);
+
+  function addTodo(title) {
+    const newTodo = {
+      id: Date.now(),
+      title,
+      completed: false
+    }
+    setTodos(curTodos => [...curTodos, newTodo])
+  }
 
   return (
     <main>
       <TodoHeader/>
-      <TodoForm/>
+      <TodoForm onAddTodo={addTodo}/>
       <TodoList todos={todos}/>
     </main>
   )
