@@ -48,8 +48,8 @@ Todo постепенно развивается в `Task Board` для небо
 
 ### Модуль 0. Подготовка окружения и Git
 
-- [ ] Проверить Node.js и npm.
-- [ ] Создать Vite-проект React с JavaScript.
+- [x] Проверить Node.js и npm.
+- [x] Создать Vite-проект React с JavaScript.
 - [ ] Разобрать назначение `package.json`, `src`, `public`, `main.jsx`, `App.jsx`.
 - [ ] Инициализировать Git и сделать первый осмысленный commit.
 - [ ] Освоить `status`, `add`, `commit`, `diff`, `log`.
@@ -207,4 +207,3 @@ Todo постепенно развивается в `Task Board` для небо
 - [ ] Типизация props, событий, state и API.
 - [ ] Narrowing и безопасная обработка nullable-значений.
 - [ ] Перевод части Task Board с JavaScript на TypeScript.
-
