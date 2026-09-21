@@ -10,7 +10,7 @@ function App() {
     { id: 1, title: 'Изучить JSX', completed: true },
     { id: 2, title: 'Разобраться с props', completed: false },
     { id: 3, title: 'Научиться работать со state', completed: false },
-  ]);
+  ])
 
   function addTodo(title) {
     const newTodo = {
@@ -36,13 +36,22 @@ function App() {
     )
   }
 
-  const total = todos.length;
+  const totalCount = todos.length
   const remaining = todos.filter(todo => todo.completed === false).length // minimal state
+  const nextTodo = todos.find(todo => !todo.completed)
+  const hasCompletedTodos = todos.some(todo => todo.completed)
+  const areAllTodosCompleted = todos.length > 0 && todos.every(todo => todo.completed)
 
   return (
     <TodoLayout>
-      <TodoHeader total={total} remaining={remaining}/>
-      <TodoForm onAddTodo={addTodo}/>
+      <TodoHeader
+        totalCount={totalCount}
+        remainingCount={remaining}
+        nextTodo={nextTodo}
+        hasCompletedTodos={hasCompletedTodos}
+        areAllTodosCompleted={areAllTodosCompleted}
+      />
+      <TodoForm onAddTodo={addTodo} />
       <TodoList
         todos={todos}
         onToggleTodo={toggleTodo}

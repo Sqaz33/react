@@ -84,7 +84,8 @@ Todo постепенно развивается в `Task Board` для небо
 
 ### Модуль 3. JavaScript для React
 
-- [ ] `map`, `filter`, `find`, `some`, `every`, `reduce`, `sort`.
+- [x] `map`, `filter`, `find`, `some`, `every`.
+- [ ] `reduce`, `sort`.
 - [ ] Объекты, spread/rest и деструктуризация.
 - [ ] Ссылочное равенство и мутация.
 - [ ] Scope, closures и callbacks.

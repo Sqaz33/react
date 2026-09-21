@@ -14,17 +14,15 @@ function TodoForm({onAddTodo}) {
   }
 
   return (
-    <>
-      <form onSubmit={handleSubmit}>
-        <input // controlled input
-          value={title}
-          onChange={event => setTitle(event.target.value)}
-          type="text"
-          placeholder="Задача"
-        />
-        <button type="submit">+</button>
-      </form>
-    </>
+    <form onSubmit={handleSubmit}>
+      <input // controlled input
+        value={title}
+        onChange={event => setTitle(event.target.value)}
+        type="text"
+        placeholder="Задача"
+      />
+      <button type="submit">+</button>
+    </form>
   )
 }
 
