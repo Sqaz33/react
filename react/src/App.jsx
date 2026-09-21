@@ -37,7 +37,8 @@ function App() {
   }
 
   const totalCount = todos.length
-  const remaining = todos.filter(todo => todo.completed === false).length // minimal state
+  const remainingCount = todos.filter(todo => todo.completed === false).length // minimal state
+  const completedCount = todos.reduce((sum, todo) => todo.completed ? sum + 1 : sum, 0)
   const nextTodo = todos.find(todo => !todo.completed)
   const hasCompletedTodos = todos.some(todo => todo.completed)
   const areAllTodosCompleted = todos.length > 0 && todos.every(todo => todo.completed)
@@ -45,8 +46,7 @@ function App() {
   return (
     <TodoLayout>
       <TodoHeader
-        totalCount={totalCount}
-        remainingCount={remaining}
+        todosStats={{ totalCount, remainingCount, completedCount }}
         nextTodo={nextTodo}
         hasCompletedTodos={hasCompletedTodos}
         areAllTodosCompleted={areAllTodosCompleted}
