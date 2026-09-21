@@ -1,7 +1,8 @@
 import TodoHeader from "./TodoHeader"
 import TodoForm from "./TodoForm"
-import TodoList from "./TodoList";
-import { useState } from "react";
+import TodoList from "./TodoList"
+import TodoLayout from "./TodoLayout"
+import { useState } from "react"
 
 
 function App() {
@@ -39,7 +40,7 @@ function App() {
   const remaining = todos.filter(todo => todo.completed === false).length // minimal state
 
   return (
-    <main>
+    <TodoLayout>
       <TodoHeader total={total} remaining={remaining}/>
       <TodoForm onAddTodo={addTodo}/>
       <TodoList
@@ -47,7 +48,7 @@ function App() {
         onToggleTodo={toggleTodo}
         onDeleteTodo={deleteTodo}
       />
-    </main>
+    </TodoLayout>
   )
 }
 
