@@ -2,9 +2,10 @@ import TodoHeader from "./TodoHeader"
 import TodoForm from "./TodoForm"
 import TodoList from "./TodoList"
 import TodoLayout from "./TodoLayout"
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import { getNextPriority } from "./priority"
 import { saveTodos } from "./fakeTodoService"
+import TodoSearch from "./TodoSearch"
 
 function App() {
   const [todos, setTodos] = useState([
@@ -90,6 +91,22 @@ function App() {
 
   const [isSaving, setIsSaving] = useState(false)
   const [saveMessage, setSaveMessage] = useState("")
+  const [searchText, setSearchText] = useState("")
+  const [debounceSearchText, setDebounceSearchText] = useState("")
+
+  useEffect(() => {
+    const timerId = setTimeout(() => {
+      setDebounceSearchText(searchText)
+    }, 400)
+    return () => { clearTimeout(timerId) }
+  }, [searchText])
+
+  const visibleTodos = sortedTodos.filter(
+    todo => {
+      const trimmed = debounceSearchText.trim()
+      return trimmed.length === 0 || todo.title.toLowerCase().includes(trimmed.toLowerCase())
+    }
+  )
 
   async function handleSaveTodos() {
     setIsSaving(true)
@@ -104,6 +121,11 @@ function App() {
     }
   }
 
+  // const delayedSearch = debounce()x
+  function handleSearchTextChange(text) {
+    setSearchText(text)
+  }
+
   return (
     <TodoLayout>
       <TodoHeader
@@ -116,8 +138,12 @@ function App() {
         onSaveTodos={handleSaveTodos}
       />
       <TodoForm onAddTodo={addTodo} />
+      <TodoSearch 
+        searchText={searchText} 
+        onSearchTextChange={handleSearchTextChange}
+      />
       <TodoList
-        todos={sortedTodos}
+        todos={visibleTodos}
         onToggleTodo={toggleTodo}
         onDeleteTodo={deleteTodo}
         onDuplicateTodo={duplicateTodo}

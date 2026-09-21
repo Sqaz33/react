@@ -93,7 +93,7 @@ Todo постепенно развивается в `Task Board` для небо
 - [x] Модули ES.
 - [x] Promise, `async/await`, `try/catch/finally`.
 - [x] Event loop: call stack, microtasks, timers.
-- [ ] Debounce на поиске.
+- [x] Debounce на поиске.
 
 Практика: поиск, фильтрация, сортировка и отложенный поиск.
 
