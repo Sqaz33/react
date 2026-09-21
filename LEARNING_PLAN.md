@@ -52,7 +52,7 @@ Todo постепенно развивается в `Task Board` для небо
 - [x] Создать Vite-проект React с JavaScript.
 - [x] Разобрать назначение `package.json`, `src`, `public`, `main.jsx`, `App.jsx`.
 - [x] Инициализировать Git и сделать первый осмысленный commit.
-- [ ] Освоить `status`, `add`, `commit`, `diff`, `log`.
+- [x] Освоить `status`, `add`, `commit`, `diff`, `log`.
 
 Результат: проект запускается локально и имеет понятную историю Git.
 
