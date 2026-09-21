@@ -50,7 +50,7 @@ Todo постепенно развивается в `Task Board` для небо
 
 - [x] Проверить Node.js и npm.
 - [x] Создать Vite-проект React с JavaScript.
-- [ ] Разобрать назначение `package.json`, `src`, `public`, `main.jsx`, `App.jsx`.
+- [x] Разобрать назначение `package.json`, `src`, `public`, `main.jsx`, `App.jsx`.
 - [x] Инициализировать Git и сделать первый осмысленный commit.
 - [ ] Освоить `status`, `add`, `commit`, `diff`, `log`.
 
