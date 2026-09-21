@@ -3,7 +3,7 @@ import TodoForm from "./TodoForm"
 import TodoList from "./TodoList"
 import TodoLayout from "./TodoLayout"
 import { useState } from "react"
-
+import { getNextPriority } from "./priority"
 
 function App() {
   const [todos, setTodos] = useState([
@@ -32,18 +32,13 @@ function App() {
   }
 
   function toggleTodoPriority(id) {
-    const nextPriority = (priority) => {
-      if (priority === "low") return "normal"
-      if (priority === "normal") return "high"
-      return "low"
-    }
     setTodos(curTodos => curTodos.map(todo => { // обновляется иммутабельно - не на прямую через todos=...
       if (todo.id === id) {
         return {
           ...todo,
           details: {
             ...todo.details,
-            priority: nextPriority(todo.details.priority)
+            priority: getNextPriority(todo.details.priority)
           }
         }
       }

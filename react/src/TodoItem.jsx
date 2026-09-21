@@ -1,10 +1,5 @@
 import TodoContent from "./TodoContent"
-
-const priorityLabels = {
-  low: "низкий",
-  normal: "средний",
-  high: "высокий"
-}
+import { PRIORITY_LABELS } from "./priority"
 
 function TodoItem({item, onToggleTodo, onDeleteTodo, onDuplicateTodo, onToggleTodoPriority}) {
   return (
@@ -32,7 +27,7 @@ function TodoItem({item, onToggleTodo, onDeleteTodo, onDuplicateTodo, onToggleTo
           onClick={() => onToggleTodoPriority(item.id)}
           type="button"
         >
-          Приоритет: {priorityLabels[item.details.priority] ?? "неизвестный"}
+          Приоритет: {PRIORITY_LABELS[item.details.priority] ?? "неизвестный"}
         </button>
       </div>
     </li>
