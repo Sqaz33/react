@@ -36,6 +36,22 @@ function App() {
     )
   }
 
+  function duplicateTodo(id) {
+    const found = todos.find(todo => todo.id === id)
+    if (!found) {
+      return
+    }
+    const {title} = found
+    const newTitle = title + " (копия)"
+    const duplicate = {
+      ...found,
+      id: Date.now(),
+      title: newTitle,
+      completed: false
+    }
+    setTodos(curTodos => [...curTodos, duplicate])
+  }
+
   const totalCount = todos.length
   const remainingCount = todos.filter(todo => todo.completed === false).length // minimal state
   const completedCount = todos.reduce((sum, todo) => todo.completed ? sum + 1 : sum, 0)
@@ -62,6 +78,7 @@ function App() {
         todos={sortedTodos}
         onToggleTodo={toggleTodo}
         onDeleteTodo={deleteTodo}
+        onDuplicateTodo={duplicateTodo}
       />
     </TodoLayout>
   )

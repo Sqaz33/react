@@ -87,7 +87,7 @@ Todo постепенно развивается в `Task Board` для небо
 - [x] `map`, `filter`, `find`, `some`, `every`.
 - [x] `reduce`.
 - [x] `sort`.
-- [ ] Объекты, spread/rest и деструктуризация.
+- [x] Объекты, spread/rest и деструктуризация.
 - [ ] Ссылочное равенство и мутация.
 - [ ] Scope, closures и callbacks.
 - [ ] Модули ES.

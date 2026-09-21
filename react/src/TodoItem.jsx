@@ -1,6 +1,6 @@
 import TodoContent from "./TodoContent"
 
-function TodoItem({item, onToggleTodo, onDeleteTodo}) {
+function TodoItem({item, onToggleTodo, onDeleteTodo, onDuplicateTodo}) {
   return (
     <li className="todo-item">
       <input
@@ -9,12 +9,20 @@ function TodoItem({item, onToggleTodo, onDeleteTodo}) {
         onChange={() => onToggleTodo(item.id)}
       />
       <TodoContent item={item} />
-      <button
-        onClick={() => onDeleteTodo(item.id)}
-        type="button"
-      >
-        Удалить
-      </button>
+      <div className="todo-actions">
+        <button
+          onClick={() => onDeleteTodo(item.id)}
+          type="button"
+        >
+          Удалить
+        </button>
+        <button
+          onClick={() => onDuplicateTodo(item.id)}
+          type="button"
+        >
+          Дублировать
+        </button>
+      </div>
     </li>
   )
 }
