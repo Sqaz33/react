@@ -29,11 +29,21 @@ function App() {
     ))
   }
 
+  function deleteTodo(id) {
+    setTodos(
+      curTodos => curTodos.filter(todo => todo.id !== id)
+    )
+  }
+
   return (
     <main>
       <TodoHeader/>
       <TodoForm onAddTodo={addTodo}/>
-      <TodoList todos={todos} onToggleTodo={toggleTodo}/>
+      <TodoList
+        todos={todos}
+        onToggleTodo={toggleTodo}
+        onDeleteTodo={deleteTodo}
+      />
     </main>
   )
 }
