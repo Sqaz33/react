@@ -37,7 +37,7 @@ function App() {
       if (priority === "normal") return "high"
       return "low"
     }
-    setTodos(curTodos => curTodos.map(todo => {
+    setTodos(curTodos => curTodos.map(todo => { // обновляется иммутабельно - не на прямую через todos=...
       if (todo.id === id) {
         return {
           ...todo,
@@ -58,20 +58,25 @@ function App() {
   }
 
   function duplicateTodo(id) {
-    const found = todos.find(todo => todo.id === id)
-    if (!found) {
-      return
-    }
-    const foundClone = structuredClone(found)
-    const {title} = foundClone
-    const newTitle = title + " (копия)"
-    const duplicate = {
-      ...foundClone,
-      id: Date.now(),
-      title: newTitle,
-      completed: false
-    }
-    setTodos(curTodos => [...curTodos, duplicate])
+    const newId = Date.now();
+    setTodos(
+      curTodos => {
+        const found = curTodos.find(todo => todo.id === id)
+        if (!found) {
+          return curTodos
+        }
+        const foundClone = structuredClone(found)
+        const {title} = foundClone
+        const newTitle = title + " (копия)"
+        const duplicate = {
+          ...foundClone,
+          id: newId,
+          title: newTitle,
+          completed: false
+        }
+        return [...curTodos, duplicate]
+      }
+    )
   }
 
   const totalCount = todos.length

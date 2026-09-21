@@ -89,7 +89,7 @@ Todo постепенно развивается в `Task Board` для небо
 - [x] `sort`.
 - [x] Объекты, spread/rest и деструктуризация.
 - [x] Ссылочное равенство и мутация.
-- [ ] Scope, closures и callbacks.
+- [x] Scope, closures и callbacks.
 - [ ] Модули ES.
 - [ ] Promise, `async/await`, `try/catch/finally`.
 - [ ] Event loop: call stack, microtasks, timers.
