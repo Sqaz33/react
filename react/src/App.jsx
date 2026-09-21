@@ -35,9 +35,12 @@ function App() {
     )
   }
 
+  const total = todos.length;
+  const remaining = todos.filter(todo => todo.completed === false).length // minimal state
+
   return (
     <main>
-      <TodoHeader/>
+      <TodoHeader total={total} remaining={remaining}/>
       <TodoForm onAddTodo={addTodo}/>
       <TodoList
         todos={todos}

@@ -1,3 +1,31 @@
-.completed {
-    text-decoration: line-through;
+main {
+  max-width: 600px;
+  margin: 40px auto;
+  padding: 0 16px;
+}
+
+.todo-header {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.todo-item {
+  display: flex;
+  align-items: center;
+  gap: 1px;
+}
+
+.todo-item.completed .todo-title {
+  text-decoration: line-through;
+}
+
+.todo-item button {
+  margin-left: auto;
+}
+
+ul {
+  margin: 16px 0 0;
+  padding: 0;
+  list-style: none;
 }
