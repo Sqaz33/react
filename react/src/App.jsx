@@ -43,6 +43,12 @@ function App() {
   const hasCompletedTodos = todos.some(todo => todo.completed)
   const areAllTodosCompleted = todos.length > 0 && todos.every(todo => todo.completed)
 
+  const sortedTodos = [...todos].sort(
+    (a, b) => {
+      return Number(a.completed) - Number(b.completed)
+    }
+  )
+
   return (
     <TodoLayout>
       <TodoHeader
@@ -53,7 +59,7 @@ function App() {
       />
       <TodoForm onAddTodo={addTodo} />
       <TodoList
-        todos={todos}
+        todos={sortedTodos}
         onToggleTodo={toggleTodo}
         onDeleteTodo={deleteTodo}
       />
