@@ -91,7 +91,7 @@ Todo постепенно развивается в `Task Board` для небо
 - [x] Ссылочное равенство и мутация.
 - [x] Scope, closures и callbacks.
 - [x] Модули ES.
-- [ ] Promise, `async/await`, `try/catch/finally`.
+- [x] Promise, `async/await`, `try/catch/finally`.
 - [ ] Event loop: call stack, microtasks, timers.
 - [ ] Debounce на поиске.
 

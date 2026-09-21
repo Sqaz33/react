@@ -4,6 +4,7 @@ import TodoList from "./TodoList"
 import TodoLayout from "./TodoLayout"
 import { useState } from "react"
 import { getNextPriority } from "./priority"
+import { saveTodos } from "./fakeTodoService"
 
 function App() {
   const [todos, setTodos] = useState([
@@ -87,6 +88,22 @@ function App() {
     }
   )
 
+  const [isSaving, setIsSaving] = useState(false)
+  const [saveMessage, setSaveMessage] = useState("")
+
+  async function handleSaveTodos() {
+    setIsSaving(true)
+    setSaveMessage("")
+    try {
+      const {savedCount} = await saveTodos(todos)
+      setSaveMessage(`Сохранено задач: ${savedCount}`)
+    } catch (error) {
+      setSaveMessage(error.message)
+    } finally {
+      setIsSaving(false)
+    }
+  }
+
   return (
     <TodoLayout>
       <TodoHeader
@@ -94,6 +111,9 @@ function App() {
         nextTodo={nextTodo}
         hasCompletedTodos={hasCompletedTodos}
         areAllTodosCompleted={areAllTodosCompleted}
+        isSaving={isSaving}
+        saveMessage={saveMessage}
+        onSaveTodos={handleSaveTodos}
       />
       <TodoForm onAddTodo={addTodo} />
       <TodoList
