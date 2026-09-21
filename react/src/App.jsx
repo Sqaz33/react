@@ -7,16 +7,17 @@ import { useState } from "react"
 
 function App() {
   const [todos, setTodos] = useState([
-    { id: 1, title: 'Изучить JSX', completed: true },
-    { id: 2, title: 'Разобраться с props', completed: false },
-    { id: 3, title: 'Научиться работать со state', completed: false },
+    { id: 3, title: 'Научиться работать со state', completed: false, details: { priority: "low" } },
+    { id: 2, title: 'Разобраться с props', completed: false, details: { priority: "normal" } },
+    { id: 1, title: 'Изучить JSX', completed: true, details: { priority: "high" } },
   ])
 
   function addTodo(title) {
     const newTodo = {
       id: Date.now(),
       title,
-      completed: false
+      completed: false,
+      details: {priority: "low"}
     }
     setTodos(curTodos => [...curTodos, newTodo])
   }
@@ -30,6 +31,26 @@ function App() {
     ))
   }
 
+  function toggleTodoPriority(id) {
+    const nextPriority = (priority) => {
+      if (priority === "low") return "normal"
+      if (priority === "normal") return "high"
+      return "low"
+    }
+    setTodos(curTodos => curTodos.map(todo => {
+      if (todo.id === id) {
+        return {
+          ...todo,
+          details: {
+            ...todo.details,
+            priority: nextPriority(todo.details.priority)
+          }
+        }
+      }
+      return todo
+    }))
+  }
+
   function deleteTodo(id) {
     setTodos(
       curTodos => curTodos.filter(todo => todo.id !== id)
@@ -41,10 +62,11 @@ function App() {
     if (!found) {
       return
     }
-    const {title} = found
+    const foundClone = structuredClone(found)
+    const {title} = foundClone
     const newTitle = title + " (копия)"
     const duplicate = {
-      ...found,
+      ...foundClone,
       id: Date.now(),
       title: newTitle,
       completed: false
@@ -79,6 +101,7 @@ function App() {
         onToggleTodo={toggleTodo}
         onDeleteTodo={deleteTodo}
         onDuplicateTodo={duplicateTodo}
+        onToggleTodoPriority={toggleTodoPriority}
       />
     </TodoLayout>
   )

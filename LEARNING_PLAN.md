@@ -88,7 +88,7 @@ Todo постепенно развивается в `Task Board` для небо
 - [x] `reduce`.
 - [x] `sort`.
 - [x] Объекты, spread/rest и деструктуризация.
-- [ ] Ссылочное равенство и мутация.
+- [x] Ссылочное равенство и мутация.
 - [ ] Scope, closures и callbacks.
 - [ ] Модули ES.
 - [ ] Promise, `async/await`, `try/catch/finally`.
