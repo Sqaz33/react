@@ -2,24 +2,23 @@ import TodoHeader from "./TodoHeader"
 import TodoForm from "./TodoForm"
 import TodoList from "./TodoList"
 import TodoLayout from "./TodoLayout"
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import { getNextPriority } from "./priority"
 import { saveTodos } from "./fakeTodoService"
 import TodoSearch from "./TodoSearch"
 import useDebouncedValue from "./useDebouncedValue"
 import useOnlineStatus from "./useOnlineStatus"
+import { load, save } from "./storage"
 
 function App() {
-  const [todos, setTodos] = useState([
-    { id: 3, title: 'Научиться работать со state', completed: false, details: { priority: "low" } },
-    { id: 2, title: 'Разобраться с props', completed: false, details: { priority: "normal" } },
-    { id: 1, title: 'Изучить JSX', completed: true, details: { priority: "high" } },
-  ])
+  const [todos, setTodos] = useState(load)
   const [isSaving, setIsSaving] = useState(false)
   const [saveMessage, setSaveMessage] = useState("")
   const [searchText, setSearchText] = useState("")
   const debouncedSearchText = useDebouncedValue(searchText, 400)
   const isOnline = useOnlineStatus()
+
+  useEffect(() => { save(todos) }, [todos])
 
   function addTodo(title) {
     const newTodo = {
