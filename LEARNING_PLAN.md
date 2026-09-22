@@ -100,8 +100,8 @@ Todo постепенно развивается в `Task Board` для небо
 ### Модуль 4. Hooks и архитектура
 
 - [x] Правила хуков.
-- [ ] `useEffect` только для синхронизации с внешней системой.
-- [ ] Dependency array и cleanup.
+- [x] `useEffect` только для синхронизации с внешней системой.
+- [x] Dependency array и cleanup.
 - [ ] Отличие событий от Effects.
 - [ ] `localStorage` без лишних Effects.
 - [ ] `useRef` и работа с DOM.

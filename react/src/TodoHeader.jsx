@@ -7,7 +7,8 @@ function TodoHeader({
   areAllTodosCompleted, 
   isSaving, 
   saveMessage, 
-  onSaveTodos
+  onSaveTodos,
+  isOnline
 }) {
   return (
     <header className="todo-header">
@@ -29,15 +30,17 @@ function TodoHeader({
           <dt>Следующая задача</dt> 
           <dd>{nextTodo ? <TodoContent item={nextTodo} /> : "нет"}</dd>
         </div>
+        <div>
+          <dt>Сеть</dt> 
+          <dd role="status">{isOnline ? "подключена" : "отсутствует"}</dd>
+        </div>
       </dl>
       <p>
         {hasCompletedTodos 
           ? "Есть завершённые задачи" 
           : "Нет завершённых задач"}
       </p>
-
       {areAllTodosCompleted && (<p aria-live="polite">Все задачи завершены</p>)}
-
       <button
         onClick={onSaveTodos}
         disabled={isSaving}

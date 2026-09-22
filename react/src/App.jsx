@@ -7,6 +7,7 @@ import { getNextPriority } from "./priority"
 import { saveTodos } from "./fakeTodoService"
 import TodoSearch from "./TodoSearch"
 import useDebouncedValue from "./useDebouncedValue"
+import useOnlineStatus from "./useOnlineStatus"
 
 function App() {
   const [todos, setTodos] = useState([
@@ -18,6 +19,7 @@ function App() {
   const [saveMessage, setSaveMessage] = useState("")
   const [searchText, setSearchText] = useState("")
   const debouncedSearchText = useDebouncedValue(searchText, 400)
+  const isOnline = useOnlineStatus()
 
   function addTodo(title) {
     const newTodo = {
@@ -129,6 +131,7 @@ function App() {
         isSaving={isSaving}
         saveMessage={saveMessage}
         onSaveTodos={handleSaveTodos}
+        isOnline={isOnline}
       />
       <TodoForm onAddTodo={addTodo} />
       <TodoSearch 
