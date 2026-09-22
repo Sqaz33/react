@@ -1,31 +1,20 @@
-const TODO_KEY = "TODO_KEY"
-
-const initialTodos = [
-  { id: 3, title: 'Научиться работать со state', completed: false, details: { priority: "low" } },
-  { id: 2, title: 'Разобраться с props', completed: false, details: { priority: "normal" } },
-  { id: 1, title: 'Изучить JSX', completed: true, details: { priority: "high" } },
-]
-
-export function load() {
+export function load(key, initialValue) {
   try {
-    const saved = localStorage.getItem(TODO_KEY)
+    const saved = localStorage.getItem(key)
     if (saved === null) {
-      return initialTodos
+      return initialValue
     }
     const data = JSON.parse(saved)
-    if (!Array.isArray(data)) {
-      return initialTodos
-    }
     return data
   } catch (error) {
     console.log(error.message)
   }
-  return initialTodos
+  return initialValue
 }
 
-export function save(value) {
+export function save(key, value) {
   try {
-    localStorage.setItem(TODO_KEY, JSON.stringify(value))
+    localStorage.setItem(key, JSON.stringify(value))
   } catch (error) {
     console.log(error.message)
   }
