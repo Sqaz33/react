@@ -24,6 +24,7 @@ function TodoItem({item, onToggleTodo, onDeleteTodo, onDuplicateTodo, onToggleTo
           Дублировать
         </button>
         <button
+          className="priority-button"
           onClick={() => onToggleTodoPriority(item.id)}
           type="button"
         >

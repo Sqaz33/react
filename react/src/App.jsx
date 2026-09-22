@@ -2,10 +2,11 @@ import TodoHeader from "./TodoHeader"
 import TodoForm from "./TodoForm"
 import TodoList from "./TodoList"
 import TodoLayout from "./TodoLayout"
-import { useEffect, useState } from "react"
+import { useState } from "react"
 import { getNextPriority } from "./priority"
 import { saveTodos } from "./fakeTodoService"
 import TodoSearch from "./TodoSearch"
+import useDebouncedValue from "./useDebouncedValue"
 
 function App() {
   const [todos, setTodos] = useState([
@@ -13,6 +14,10 @@ function App() {
     { id: 2, title: 'Разобраться с props', completed: false, details: { priority: "normal" } },
     { id: 1, title: 'Изучить JSX', completed: true, details: { priority: "high" } },
   ])
+  const [isSaving, setIsSaving] = useState(false)
+  const [saveMessage, setSaveMessage] = useState("")
+  const [searchText, setSearchText] = useState("")
+  const debouncedSearchText = useDebouncedValue(searchText, 400)
 
   function addTodo(title) {
     const newTodo = {
@@ -89,21 +94,9 @@ function App() {
     }
   )
 
-  const [isSaving, setIsSaving] = useState(false)
-  const [saveMessage, setSaveMessage] = useState("")
-  const [searchText, setSearchText] = useState("")
-  const [debounceSearchText, setDebounceSearchText] = useState("")
-
-  useEffect(() => {
-    const timerId = setTimeout(() => {
-      setDebounceSearchText(searchText)
-    }, 400)
-    return () => { clearTimeout(timerId) }
-  }, [searchText])
-
   const visibleTodos = sortedTodos.filter(
     todo => {
-      const trimmed = debounceSearchText.trim()
+      const trimmed = debouncedSearchText.trim()
       return trimmed.length === 0 || todo.title.toLowerCase().includes(trimmed.toLowerCase())
     }
   )
