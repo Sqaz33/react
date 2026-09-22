@@ -104,7 +104,7 @@ Todo постепенно развивается в `Task Board` для небо
 - [x] Dependency array и cleanup.
 - [x] Отличие событий от Effects.
 - [x] `localStorage` без лишних Effects.
-- [ ] `useRef` и работа с DOM.
+- [x] `useRef` и работа с DOM.
 - [ ] Собственный hook `useLocalStorage`.
 - [ ] `useReducer` для сложных переходов состояния.
 - [ ] Context и границы его применения.
