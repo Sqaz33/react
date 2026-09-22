@@ -121,6 +121,10 @@ function App() {
     setSearchText(text)
   }
 
+  function clearCompletedTodos() {  
+    setTodos(curTodos => curTodos.filter(todo => !todo.completed))
+  }
+
   return (
     <TodoLayout>
       <TodoHeader
@@ -132,6 +136,7 @@ function App() {
         saveMessage={saveMessage}
         onSaveTodos={handleSaveTodos}
         isOnline={isOnline}
+        onClearCompletedTodos={clearCompletedTodos}
       />
       <TodoForm onAddTodo={addTodo} />
       <TodoSearch 

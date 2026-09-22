@@ -9,10 +9,15 @@
 
 .todo-header {
   display: flex;
+  flex-direction: column;
   gap: 8px;
-  align-items: center;
   border: 1px solid brown;
   padding: 4px;
+}
+
+.todo-header button {
+  flex-direction: column;
+  width: fit-content;
 }
 
 .todo-search {

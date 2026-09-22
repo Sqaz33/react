@@ -102,7 +102,7 @@ Todo постепенно развивается в `Task Board` для небо
 - [x] Правила хуков.
 - [x] `useEffect` только для синхронизации с внешней системой.
 - [x] Dependency array и cleanup.
-- [ ] Отличие событий от Effects.
+- [x] Отличие событий от Effects.
 - [ ] `localStorage` без лишних Effects.
 - [ ] `useRef` и работа с DOM.
 - [ ] Собственный hook `useLocalStorage`.

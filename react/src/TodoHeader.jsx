@@ -8,7 +8,8 @@ function TodoHeader({
   isSaving, 
   saveMessage, 
   onSaveTodos,
-  isOnline
+  isOnline,
+  onClearCompletedTodos,
 }) {
   return (
     <header className="todo-header">
@@ -48,7 +49,14 @@ function TodoHeader({
       >
         {isSaving ? "Сохранение..." : "Сохранить"}
       </button>
-      <span>{saveMessage}</span>
+      <span role="status">{saveMessage}</span>
+      <button 
+        onClick={onClearCompletedTodos}
+        disabled={!hasCompletedTodos}
+        type="button"
+      >
+        Удалить выполненные  
+      </button>
     </header>
   )
 }
