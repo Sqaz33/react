@@ -106,7 +106,7 @@ Todo постепенно развивается в `Task Board` для небо
 - [x] `localStorage` без лишних Effects.
 - [x] `useRef` и работа с DOM.
 - [x] Собственный hook `useLocalStorage`.
-- [ ] `useReducer` для сложных переходов состояния.
+- [x] `useReducer` для сложных переходов состояния.
 - [ ] Context и границы его применения.
 - [ ] Базовое понимание `useMemo` и `useCallback` без преждевременной оптимизации.
 

@@ -2,13 +2,19 @@ import TodoHeader from "./TodoHeader"
 import TodoForm from "./TodoForm"
 import TodoList from "./TodoList"
 import TodoLayout from "./TodoLayout"
-import { useState } from "react"
+import { useReducer, useState } from "react"
 import { getNextPriority } from "./priority"
 import { saveTodos } from "./fakeTodoService"
 import TodoSearch from "./TodoSearch"
 import useDebouncedValue from "./useDebouncedValue"
 import useOnlineStatus from "./useOnlineStatus"
 import useLocalStorage from "./useLocalStorage"
+import {
+  initialSaveState,
+  saveActionTypes,
+  saveStateStatuses,
+  saveReducer
+} from "./saveReducer"
 
 const initialTodos = [
   { id: 3, title: 'Научиться работать со state', completed: false, details: { priority: "low" } },
@@ -19,13 +25,10 @@ const TODO_KEY = "TODO_KEY"
 
 function App() {
   const [todos, setTodos] = useLocalStorage(TODO_KEY, initialTodos)
-
-  const [isSaving, setIsSaving] = useState(false)
-  const [saveMessage, setSaveMessage] = useState("")
+  const [saveState, dispatchSave] = useReducer(saveReducer, initialSaveState)
   const [searchText, setSearchText] = useState("")
   const debouncedSearchText = useDebouncedValue(searchText, 400)
   const isOnline = useOnlineStatus()
-
 
   function addTodo(title) {
     const newTodo = {
@@ -110,15 +113,19 @@ function App() {
   )
 
   async function handleSaveTodos() {
-    setIsSaving(true)
-    setSaveMessage("")
+    dispatchSave({type: saveActionTypes.started})
     try {
       const {savedCount} = await saveTodos(todos)
-      setSaveMessage(`Сохранено задач: ${savedCount}`)
+      dispatchSave({
+        type: saveActionTypes.succeeded,
+        payload: { savedCount }
+      })
     } catch (error) {
-      setSaveMessage(error.message)
-    } finally {
-      setIsSaving(false)
+      const { message } = error
+      dispatchSave({
+        type: saveActionTypes.failed,
+        payload: { message }
+      })
     }
   }
 
@@ -130,6 +137,9 @@ function App() {
   function clearCompletedTodos() {  
     setTodos(curTodos => curTodos.filter(todo => !todo.completed))
   }
+
+  const isSaving = saveState.status === saveStateStatuses.saving
+  const saveMessage = saveState.message
 
   return (
     <TodoLayout>
