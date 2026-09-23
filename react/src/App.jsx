@@ -2,7 +2,7 @@ import TodoHeader from "./TodoHeader"
 import TodoForm from "./TodoForm"
 import TodoList from "./TodoList"
 import TodoLayout from "./TodoLayout"
-import { useReducer, useState } from "react"
+import { useCallback, useMemo, useReducer, useState } from "react"
 import { getNextPriority } from "./priority"
 import { saveTodos } from "./fakeTodoService"
 import TodoSearch from "./TodoSearch"
@@ -101,18 +101,21 @@ function App() {
   const hasCompletedTodos = todos.some(todo => todo.completed)
   const areAllTodosCompleted = todos.length > 0 && todos.every(todo => todo.completed)
 
-  const sortedTodos = [...todos].sort(
-    (a, b) => {
-      return Number(a.completed) - Number(b.completed)
-    }
-  )
+  const visibleTodos = useMemo(() => {
+    const sortedTodos = [...todos].sort(
+      (a, b) => {
+        return Number(a.completed) - Number(b.completed)
+      }
+    )
+    const trimmedLowerCase = debouncedSearchText.trim().toLowerCase()
 
-  const visibleTodos = sortedTodos.filter(
-    todo => {
-      const trimmed = debouncedSearchText.trim()
-      return trimmed.length === 0 || todo.title.toLowerCase().includes(trimmed.toLowerCase())
-    }
-  )
+    return sortedTodos.filter(
+      todo => {
+        const titleLowerCase = todo.title.toLowerCase()
+        return trimmedLowerCase.length === 0 || titleLowerCase.includes(trimmedLowerCase)
+      }
+    )
+  }, [todos, debouncedSearchText])
 
   async function handleSaveTodos() {
     dispatchSave({type: saveActionTypes.started})
@@ -143,12 +146,17 @@ function App() {
   const isSaving = saveState.status === saveStateStatuses.saving
   const saveMessage = saveState.message
 
-  function toggleTheme() {
+  const toggleTheme = useCallback(() => {
     setTheme(curTheme => curTheme === "light" ? "dark" : "light")
-  }
+  }, [])
+
+  const themeContextValue = useMemo(
+    () => { return {theme, toggleTheme}},
+    [theme, toggleTheme]
+  )
 
   return (
-    <ThemeContext value={{theme, toggleTheme}}>
+    <ThemeContext value={themeContextValue}>
       <TodoLayout>
         <TodoHeader
           todosStats={{ totalCount, remainingCount, completedCount }}
