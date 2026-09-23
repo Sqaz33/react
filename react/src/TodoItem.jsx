@@ -4,12 +4,14 @@ import { PRIORITY_LABELS } from "./priority"
 function TodoItem({item, onToggleTodo, onDeleteTodo, onDuplicateTodo, onToggleTodoPriority}) {
   return (
     <li className="todo-item">
-      <input
-        type="checkbox"
-        checked={item.completed}
-        onChange={() => onToggleTodo(item.id)}
-      />
-      <TodoContent item={item} />
+      <label className="todo-toggle">
+        <input
+          type="checkbox"
+          checked={item.completed}
+          onChange={() => onToggleTodo(item.id)}
+        />
+        <TodoContent item={item} />
+      </label>
       <div className="todo-actions">
         <button
           onClick={() => onDeleteTodo(item.id)}

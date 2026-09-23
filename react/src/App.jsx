@@ -170,17 +170,20 @@ function App() {
           onClearCompletedTodos={clearCompletedTodos}
         />
         <TodoForm onAddTodo={addTodo} />
-        <TodoSearch
-          searchText={searchText}
-          onSearchTextChange={handleSearchTextChange}
-        />
-        <TodoList
-          todos={visibleTodos}
-          onToggleTodo={toggleTodo}
-          onDeleteTodo={deleteTodo}
-          onDuplicateTodo={duplicateTodo}
-          onToggleTodoPriority={toggleTodoPriority}
-        />
+        <section aria-labelledby="todo-list-heading">
+          <h2 id="todo-list-heading">Задачи</h2>
+          <TodoSearch
+            searchText={searchText}
+            onSearchTextChange={handleSearchTextChange}
+          />
+          <TodoList
+            todos={visibleTodos}
+            onToggleTodo={toggleTodo}
+            onDeleteTodo={deleteTodo}
+            onDuplicateTodo={duplicateTodo}
+            onToggleTodoPriority={toggleTodoPriority}
+          />
+        </section>
       </TodoLayout>
     </ThemeContext>
   )

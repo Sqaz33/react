@@ -3,12 +3,13 @@
   flex-direction: column;
   max-width: 600px;
   margin: 40px auto;
-  padding: 0 16px;
+  padding: 16px 16px;
   gap: 8px;
 
   --surface-color: white;
   --text-color: black;
   --border-color: black;
+  --focus-color: #cf7171;
 
   background-color: var(--surface-color);
   color: var(--text-color);
@@ -18,6 +19,7 @@
   --surface-color: black;
   --text-color: white;
   --border-color: white;
+  --focus-color: #dfa1a1;
 }
 
 .todo-header {
@@ -114,4 +116,25 @@ ul {
   margin: 0;
 }
 
+.todo-toggle {
+  display: flex;
+  gap:  8px;
+  align-items: center;
+  flex: 1;
+  min-width: 0;
+}
 
+.todo-layout button:focus-visible {
+  outline: 2px solid var(--focus-color);
+  outline-offset: 2px
+}
+
+.todo-layout input:focus-visible {
+  outline: 2px solid var(--focus-color);
+  outline-offset: 2px
+}
+
+.todo-input {
+  display: flex;
+  gap: 8px;
+}
