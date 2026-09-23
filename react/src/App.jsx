@@ -15,6 +15,7 @@ import {
   saveStateStatuses,
   saveReducer
 } from "./saveReducer"
+import { ThemeContext } from "./ThemeContext"
 
 const initialTodos = [
   { id: 3, title: 'Научиться работать со state', completed: false, details: { priority: "low" } },
@@ -27,6 +28,7 @@ function App() {
   const [todos, setTodos] = useLocalStorage(TODO_KEY, initialTodos)
   const [saveState, dispatchSave] = useReducer(saveReducer, initialSaveState)
   const [searchText, setSearchText] = useState("")
+  const [theme, setTheme] = useState("light")
   const debouncedSearchText = useDebouncedValue(searchText, 400)
   const isOnline = useOnlineStatus()
 
@@ -121,7 +123,7 @@ function App() {
         payload: { savedCount }
       })
     } catch (error) {
-      const { message } = error
+      const {message} = error
       dispatchSave({
         type: saveActionTypes.failed,
         payload: { message }
@@ -141,32 +143,38 @@ function App() {
   const isSaving = saveState.status === saveStateStatuses.saving
   const saveMessage = saveState.message
 
+  function toggleTheme() {
+    setTheme(curTheme => curTheme === "light" ? "dark" : "light")
+  }
+
   return (
-    <TodoLayout>
-      <TodoHeader
-        todosStats={{ totalCount, remainingCount, completedCount }}
-        nextTodo={nextTodo}
-        hasCompletedTodos={hasCompletedTodos}
-        areAllTodosCompleted={areAllTodosCompleted}
-        isSaving={isSaving}
-        saveMessage={saveMessage}
-        onSaveTodos={handleSaveTodos}
-        isOnline={isOnline}
-        onClearCompletedTodos={clearCompletedTodos}
-      />
-      <TodoForm onAddTodo={addTodo} />
-      <TodoSearch 
-        searchText={searchText} 
-        onSearchTextChange={handleSearchTextChange}
-      />
-      <TodoList
-        todos={visibleTodos}
-        onToggleTodo={toggleTodo}
-        onDeleteTodo={deleteTodo}
-        onDuplicateTodo={duplicateTodo}
-        onToggleTodoPriority={toggleTodoPriority}
-      />
-    </TodoLayout>
+    <ThemeContext value={{theme, toggleTheme}}>
+      <TodoLayout>
+        <TodoHeader
+          todosStats={{ totalCount, remainingCount, completedCount }}
+          nextTodo={nextTodo}
+          hasCompletedTodos={hasCompletedTodos}
+          areAllTodosCompleted={areAllTodosCompleted}
+          isSaving={isSaving}
+          saveMessage={saveMessage}
+          onSaveTodos={handleSaveTodos}
+          isOnline={isOnline}
+          onClearCompletedTodos={clearCompletedTodos}
+        />
+        <TodoForm onAddTodo={addTodo} />
+        <TodoSearch
+          searchText={searchText}
+          onSearchTextChange={handleSearchTextChange}
+        />
+        <TodoList
+          todos={visibleTodos}
+          onToggleTodo={toggleTodo}
+          onDeleteTodo={deleteTodo}
+          onDuplicateTodo={duplicateTodo}
+          onToggleTodoPriority={toggleTodoPriority}
+        />
+      </TodoLayout>
+    </ThemeContext>
   )
 }
 

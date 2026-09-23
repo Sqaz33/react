@@ -1,4 +1,5 @@
 import TodoContent from "./TodoContent"
+import { useTheme } from "./ThemeContext"
 
 function TodoHeader({
   todosStats, 
@@ -11,6 +12,8 @@ function TodoHeader({
   isOnline,
   onClearCompletedTodos,
 }) {
+  const {theme, toggleTheme} = useTheme()
+
   return (
     <header className="todo-header">
       <h1>Todo</h1>
@@ -56,6 +59,13 @@ function TodoHeader({
         type="button"
       >
         Удалить выполненные  
+      </button>
+      <button
+        onClick={toggleTheme}
+        aria-pressed={theme === "dark"}
+        type="button"
+      >
+        Тёмная тема
       </button>
     </header>
   )

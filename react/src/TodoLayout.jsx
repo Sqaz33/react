@@ -1,5 +1,16 @@
+import { useTheme } from "./ThemeContext"
+
 function TodoLayout({children}) {
-  return <main className="todo-layout">{children}</main> // children composition
+  const {theme} = useTheme()
+
+  return (
+    <main
+      className="todo-layout"
+      data-theme={theme}
+    >
+      {children}
+    </main>
+  ) // children composition
 }
 
 export default TodoLayout

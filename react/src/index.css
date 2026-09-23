@@ -5,13 +5,26 @@
   margin: 40px auto;
   padding: 0 16px;
   gap: 8px;
+
+  --surface-color: white;
+  --text-color: black;
+  --border-color: black;
+
+  background-color: var(--surface-color);
+  color: var(--text-color);
+}
+
+.todo-layout[data-theme="dark"] {
+  --surface-color: black;
+  --text-color: white;
+  --border-color: white;
 }
 
 .todo-header {
   display: flex;
   flex-direction: column;
   gap: 8px;
-  border: 1px solid brown;
+  border: 1px solid var(--border-color);
   padding: 4px;
 }
 
@@ -30,7 +43,7 @@
   display: flex;
   align-items: center;
   gap: 8px;
-  border: 1px solid brown;
+  border: 1px solid var(--border-color);
   padding: 4px 4px;
 }
 
