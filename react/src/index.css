@@ -1,3 +1,9 @@
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
 .todo-layout {
   display: flex;
   flex-direction: column;
@@ -6,6 +12,8 @@
   padding: 16px 16px;
   gap: 8px;
 
+  font-family: Arial, sans-serif;
+
   --surface-color: white;
   --text-color: black;
   --border-color: black;
@@ -13,6 +21,11 @@
 
   background-color: var(--surface-color);
   color: var(--text-color);
+}
+
+.todo-layout button,
+.todo-layout input {
+  font: inherit;
 }
 
 .todo-layout[data-theme="dark"] {
@@ -31,7 +44,6 @@
 }
 
 .todo-header button {
-  flex-direction: column;
   width: fit-content;
 }
 
@@ -66,12 +78,6 @@
 
 .todo-content.completed {
   text-decoration: line-through;
-}
-
-.todo-actions {
-  display: flex;
-  gap: 8px;
-  margin-left: auto;
 }
 
 .todo-actions button {
