@@ -16,7 +16,7 @@ function TodoForm({onAddTodo}) {
   }
 
   return (
-    <form onSubmit={handleSubmit} className="todo-input">
+    <form onSubmit={handleSubmit} className="todo-form">
       <label htmlFor="todo-input">Ввод задачи</label>
       <input // controlled input
         value={title}

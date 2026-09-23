@@ -45,28 +45,30 @@ function TodoHeader({
           : "Нет завершённых задач"}
       </p>
       {areAllTodosCompleted && (<p aria-live="polite">Все задачи завершены</p>)}
-      <button
-        onClick={onSaveTodos}
-        disabled={isSaving}
-        type="button"
-      >
-        {isSaving ? "Сохранение..." : "Сохранить"}
-      </button>
+      <div className="todo-header-actions">
+        <button
+          onClick={onSaveTodos}
+          disabled={isSaving}
+          type="button"
+        >
+          {isSaving ? "Сохранение..." : "Сохранить"}
+        </button>
+        <button 
+          onClick={onClearCompletedTodos}
+          disabled={!hasCompletedTodos}
+          type="button"
+        >
+          Удалить выполненные
+        </button>
+        <button
+          onClick={toggleTheme}
+          aria-pressed={theme === "dark"}
+          type="button"
+        >
+          Тёмная тема
+        </button>
+      </div>
       <span role="status">{saveMessage}</span>
-      <button 
-        onClick={onClearCompletedTodos}
-        disabled={!hasCompletedTodos}
-        type="button"
-      >
-        Удалить выполненные  
-      </button>
-      <button
-        onClick={toggleTheme}
-        aria-pressed={theme === "dark"}
-        type="button"
-      >
-        Тёмная тема
-      </button>
     </header>
   )
 }
