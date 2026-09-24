@@ -118,7 +118,7 @@ Todo постепенно развивается в `Task Board` для небо
 - [x] Формы, `label`, кнопки и типы полей.
 - [x] Базовая доступность: клавиатура, focus, aria только при необходимости.
 - [x] Каскад, специфичность, наследование и box model.
-- [ ] Flexbox и Grid.
+- [x] Flexbox и Grid.
 - [ ] Адаптивная вёрстка и media queries.
 - [ ] Состояния hover/focus/disabled/error.
 - [ ] SCSS: вложенность, переменные, mixins, partials/modules.
