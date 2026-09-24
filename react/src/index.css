@@ -18,14 +18,12 @@
   --text-color: black;
   --border-color: black;
   --focus-color: #cf7171;
+  --button-bg: #f2f2f2;
+  --button-hover-bg: #dddddd;
+  --error-color: #e90a0a;
 
   background-color: var(--surface-color);
   color: var(--text-color);
-}
-
-.todo-layout button,
-.todo-layout input {
-  font: inherit;
 }
 
 .todo-layout[data-theme="dark"] {
@@ -33,6 +31,31 @@
   --text-color: white;
   --border-color: white;
   --focus-color: #dfa1a1;
+  --button-bg: #222222;
+  --button-hover-bg: #3a3a3a;
+  --error-color: #d86666;
+}
+
+.todo-layout button,
+.todo-layout input {
+  font: inherit;
+}
+
+.todo-layout button {
+  color: var(--text-color);
+  background-color: var(--button-bg);
+  border: solid 1px var(--border-color)
+}
+
+@media (hover: hover) {
+  .todo-layout button:not(:disabled):hover {
+    background-color: var(--button-hover-bg);
+  }
+}
+
+.todo-layout button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
 }
 
 .todo-header {
@@ -45,6 +68,10 @@
 
 .todo-header button {
   width: fit-content;
+}
+
+.save-message.error {
+  color: var(--error-color)
 }
 
 .todo-search {

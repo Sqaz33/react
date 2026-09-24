@@ -7,7 +7,8 @@ function TodoHeader({
   hasCompletedTodos, 
   areAllTodosCompleted, 
   isSaving, 
-  saveMessage, 
+  saveMessage,
+  isSaveError,
   onSaveTodos,
   isOnline,
   onClearCompletedTodos,
@@ -68,7 +69,14 @@ function TodoHeader({
           Тёмная тема
         </button>
       </div>
-      <span role="status">{saveMessage}</span>
+      {saveMessage && (
+        <span
+          className={"save-message" + (isSaveError ? " error" : "")}
+          role={isSaveError ? "alert" : "status"}
+        >
+          {saveMessage}
+        </span>
+      )}
     </header>
   )
 }

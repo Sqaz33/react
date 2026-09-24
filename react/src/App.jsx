@@ -144,6 +144,7 @@ function App() {
   }
 
   const isSaving = saveState.status === saveStateStatuses.saving
+  const isSaveError = saveState.status === saveStateStatuses.error
   const saveMessage = saveState.message
 
   const toggleTheme = useCallback(() => {
@@ -165,6 +166,7 @@ function App() {
           areAllTodosCompleted={areAllTodosCompleted}
           isSaving={isSaving}
           saveMessage={saveMessage}
+          isSaveError={isSaveError}
           onSaveTodos={handleSaveTodos}
           isOnline={isOnline}
           onClearCompletedTodos={clearCompletedTodos}

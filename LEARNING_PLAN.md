@@ -120,7 +120,7 @@ Todo постепенно развивается в `Task Board` для небо
 - [x] Каскад, специфичность, наследование и box model.
 - [x] Flexbox и Grid.
 - [x] Адаптивная вёрстка и media queries.
-- [ ] Состояния hover/focus/disabled/error.
+- [x] Состояния hover/focus/disabled/error.
 - [ ] SCSS: вложенность, переменные, mixins, partials/modules.
 - [ ] Styled Components: props, динамические стили, theme.
 - [ ] Сравнение SCSS, CSS Modules и CSS-in-JS.
