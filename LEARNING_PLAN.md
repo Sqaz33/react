@@ -121,7 +121,7 @@ Todo постепенно развивается в `Task Board` для небо
 - [x] Flexbox и Grid.
 - [x] Адаптивная вёрстка и media queries.
 - [x] Состояния hover/focus/disabled/error.
-- [ ] SCSS: вложенность, переменные, mixins, partials/modules.
+- [x] SCSS: вложенность, переменные, mixins, partials/modules.
 - [ ] Styled Components: props, динамические стили, theme.
 - [ ] Сравнение SCSS, CSS Modules и CSS-in-JS.
 

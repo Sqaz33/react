@@ -5,7 +5,7 @@
 ## Текущий статус
 
 - Текущий модуль: **5. HTML, CSS, SCSS и Styled Components**.
-- Текущий урок: **SCSS: partials, modules и `@use`**.
+- Текущий урок: **Styled Components: назначение, синтаксис и динамические стили**.
 - Состояние проекта: Vite-приложение находится в `D:\react\react`; панель Todo
   показывает следующую задачу и сводные состояния, а линтер, production-сборка
   и проверка diff проходят.
@@ -88,10 +88,24 @@
 
 ## Следующее действие
 
-Разобрать Sass partials и modules: вынести статические tokens и mixin в
-отдельные partial-файлы, подключить их через `@use` и понять namespace.
+Разобрать Styled Components: отличие CSS-in-JS от SCSS, создание первого
+стилизованного компонента и передача ограниченного динамического состояния.
 
 ## Журнал занятий
+
+### 2026-09-24 — Sass partials и modules приняты
+
+- Разбирается деление большого stylesheet на partial-файлы с `_` в имени.
+- `@use` загружает Sass module один раз и даёт доступ к его публичным
+  переменным и mixins через namespace.
+- Практика: вынести `$space-small` и `focus-ring` из entry-файла `index.scss`,
+  сохранив тот же итоговый CSS и runtime custom properties темы.
+- Исправлены имена каталога и partial-файлов: `styles`, `_tokens.scss` и
+  `_mixins.scss`; Sass находит их по путям без `_` и расширения.
+- Все обращения используют явные namespaces `tokens` и `mixins`; исходный
+  `index.scss` остаётся единственной точкой входа из JavaScript.
+- Lint, production-сборка и diff-check проходят; итоговый CSS сохранил прежний
+  размер и поведение.
 
 ### 2026-09-24 — Sass variables и mixins приняты
 

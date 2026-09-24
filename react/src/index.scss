@@ -1,17 +1,10 @@
+@use "./styles/mixins";
+@use "./styles/tokens";
+
 *,
 *::before,
 *::after {
   box-sizing: border-box;
-}
-
-$space-small: 8px;
-
-@mixin focus-ring(
-  $color: var(--focus-color),
-  $offset: 2px
-) {
-  outline: 2px solid $color;
-  outline-offset: $offset;
 }
 
 .todo-layout {
@@ -20,7 +13,7 @@ $space-small: 8px;
   max-width: 600px;
   margin: 40px auto;
   padding: 16px 16px;
-  gap: $space-small;
+  gap: tokens.$space-small;
 
   font-family: Arial, sans-serif;
 
@@ -71,7 +64,7 @@ $space-small: 8px;
 .todo-header {
   display: flex;
   flex-direction: column;
-  gap: $space-small;
+  gap: tokens.$space-small;
   border: 1px solid var(--border-color);
   padding: 4px;
 
@@ -87,7 +80,7 @@ $space-small: 8px;
 .todo-search {
   display: flex;
   align-items: flex-start;
-  gap: $space-small;
+  gap: tokens.$space-small;
 }
 
 .todo-item {
@@ -96,7 +89,7 @@ $space-small: 8px;
   grid-template-columns: minmax(0, 1fr);
 
   align-items: center;
-  gap: $space-small;
+  gap: tokens.$space-small;
   border: 1px solid var(--border-color);
   padding: 4px 4px;
 }
@@ -122,11 +115,11 @@ $space-small: 8px;
 
 .todo-actions {
   display: flex;
-  gap: $space-small;
+  gap: tokens.$space-small;
   flex-wrap: wrap;
 
   button {
-    padding: 4px $space-small;
+    padding: 4px tokens.$space-small;
   }
 }
 
@@ -165,22 +158,22 @@ ul {
 
 .todo-toggle {
   display: flex;
-  gap:  $space-small;
+  gap:  tokens.$space-small;
   align-items: center;
   min-width: 0;
 }
 
 .todo-layout button:focus-visible {
-  @include focus-ring($offset: 2px)
+  @include mixins.focus-ring($offset: 2px)
 }
 
 .todo-layout input:focus-visible {
-  @include focus-ring($offset: 2px)
+  @include mixins.focus-ring($offset: 2px)
 }
 
 .todo-form {
   display: flex;
-  gap: $space-small;
+  gap: tokens.$space-small;
 
   input {
     flex: 1;
@@ -194,7 +187,7 @@ ul {
 
 .todo-header-actions {
   display: flex;
-  gap: $space-small;
+  gap: tokens.$space-small;
   flex-wrap: wrap;
   align-items: center;
 }
