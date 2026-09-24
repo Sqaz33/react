@@ -56,12 +56,19 @@
 .todo-item {
   display: grid;
 
-  grid-template-columns: minmax(0, 1fr) auto;
+  grid-template-columns: minmax(0, 1fr);
 
   align-items: center;
   gap: 8px;
   border: 1px solid var(--border-color);
   padding: 4px 4px;
+}
+
+
+@media (min-width: 560px) {
+  .todo-item {
+    grid-template-columns: minmax(0, 1fr) auto;
+  }
 }
 
 .todo-content {
@@ -75,6 +82,7 @@
 .todo-actions {
   display: flex;
   gap: 8px;
+  flex-wrap: wrap;
 }
 
 .todo-content.completed {
