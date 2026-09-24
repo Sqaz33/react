@@ -122,7 +122,7 @@ Todo постепенно развивается в `Task Board` для небо
 - [x] Адаптивная вёрстка и media queries.
 - [x] Состояния hover/focus/disabled/error.
 - [x] SCSS: вложенность, переменные, mixins, partials/modules.
-- [ ] Styled Components: props, динамические стили, theme.
+- [x] Styled Components: props, динамические стили, theme.
 - [ ] Сравнение SCSS, CSS Modules и CSS-in-JS.
 
 Практика: адаптивный Task Board; основная раскладка на SCSS, несколько
