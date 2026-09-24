@@ -93,6 +93,21 @@
 
 ## Журнал занятий
 
+### 2026-09-24 — первый Styled Component принят
+
+- Разбирается отличие build-time SCSS от runtime-библиотеки Styled Components.
+- `styled.button` создаёт React-компонент, который рендерит обычный `<button>`
+  с автоматически созданным CSS-классом.
+- Первый учебный перенос ограничен кнопкой приоритета; динамический стиль
+  зависит от transient prop с префиксом `$`, который не попадает в DOM.
+- `styled-components` установлен как runtime dependency, а `PriorityButton`
+  объявлен вне функции `TodoItem` и сохраняет семантику обычного `<button>`.
+- Boolean prop вычисляется из `item.details.priority`; высокий приоритет получает
+  `font-weight: 700`, остальные — `400`.
+- Найден реальный конфликт каскада: более специфичное `font: inherit` сбрасывало
+  динамический `font-weight`. Shorthand заменён необходимыми longhand-свойствами.
+- Lint, production-сборка и diff-check проходят.
+
 ### 2026-09-24 — Sass partials и modules приняты
 
 - Разбирается деление большого stylesheet на partial-файлы с `_` в имени.

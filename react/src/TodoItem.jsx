@@ -1,5 +1,12 @@
 import TodoContent from "./TodoContent"
 import { PRIORITY_LABELS } from "./priority"
+import styled from "styled-components"
+
+const PriorityButton = styled.button`
+  font-weight: ${({$important}) => $important ? 700 : 400};
+  flex-shrink: 0;
+  min-width: 150px;
+`
 
 function TodoItem({item, onToggleTodo, onDeleteTodo, onDuplicateTodo, onToggleTodoPriority}) {
   return (
@@ -25,13 +32,13 @@ function TodoItem({item, onToggleTodo, onDeleteTodo, onDuplicateTodo, onToggleTo
         >
           Дублировать
         </button>
-        <button
-          className="priority-button"
+        <PriorityButton
           onClick={() => onToggleTodoPriority(item.id)}
           type="button"
+          $important={item.details.priority === "high"}
         >
           Приоритет: {PRIORITY_LABELS[item.details.priority] ?? "неизвестный"}
-        </button>
+        </PriorityButton>
       </div>
     </li>
   )

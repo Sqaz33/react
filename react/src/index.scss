@@ -39,7 +39,8 @@
   }
 
   button {
-    font: inherit;
+    font-family: inherit;
+    font-size: inherit;
     color: var(--text-color);
     background-color: var(--button-bg);
     border: solid 1px var(--border-color)
@@ -121,11 +122,6 @@
   button {
     padding: 4px tokens.$space-small;
   }
-}
-
-.priority-button {
-  min-width: 150px;
-  flex-shrink: 0;
 }
 
 ul {
