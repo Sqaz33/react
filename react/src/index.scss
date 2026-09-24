@@ -24,27 +24,32 @@
 
   background-color: var(--surface-color);
   color: var(--text-color);
-}
 
-.todo-layout[data-theme="dark"] {
-  --surface-color: black;
-  --text-color: white;
-  --border-color: white;
-  --focus-color: #dfa1a1;
-  --button-bg: #222222;
-  --button-hover-bg: #3a3a3a;
-  --error-color: #d86666;
-}
+  &[data-theme="dark"] {
+    --surface-color: black;
+    --text-color: white;
+    --border-color: white;
+    --focus-color: #dfa1a1;
+    --button-bg: #222222;
+    --button-hover-bg: #3a3a3a;
+    --error-color: #d86666;
+  }
 
-.todo-layout button,
-.todo-layout input {
-  font: inherit;
-}
+  button {
+    font: inherit;
+    color: var(--text-color);
+    background-color: var(--button-bg);
+    border: solid 1px var(--border-color)
+  }
 
-.todo-layout button {
-  color: var(--text-color);
-  background-color: var(--button-bg);
-  border: solid 1px var(--border-color)
+  button:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+
+  input {
+    font: inherit;
+  }
 }
 
 @media (hover: hover) {
@@ -53,21 +58,16 @@
   }
 }
 
-.todo-layout button:disabled {
-  opacity: 0.5;
-  cursor: not-allowed;
-}
-
 .todo-header {
   display: flex;
   flex-direction: column;
   gap: 8px;
   border: 1px solid var(--border-color);
   padding: 4px;
-}
 
-.todo-header button {
-  width: fit-content;
+  button {
+    width: fit-content;
+  }
 }
 
 .save-message.error {
@@ -104,20 +104,20 @@
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
+
+  &.completed {
+    text-decoration: line-through;
+  }
 }
 
 .todo-actions {
   display: flex;
   gap: 8px;
   flex-wrap: wrap;
-}
 
-.todo-content.completed {
-  text-decoration: line-through;
-}
-
-.todo-actions button {
-  padding: 4px 8px;
+  button {
+    padding: 4px 8px;
+  }
 }
 
 .priority-button {
@@ -131,31 +131,26 @@ ul {
   list-style: none;
 }
 
-.todo-stats dt, 
-.todo-stats dd {
-  display: inline;
-  margin: 0;
-}
-
-.todo-stats dt::after {
-  content: ": ";
-}
-
 .todo-stats {
   flex: 0 0 auto;  /* не растягиваться */
   width: fit-content;
   margin: 0;
-}
 
-.todo-stats > div {
-  display: flex;
-  align-items: center;
-  gap: 4px;
-}
+  dt,
+  dd {
+    display: inline;
+    margin: 0;
+  }
 
-.todo-stats dt,
-.todo-stats dd {
-  margin: 0;
+  dt::after {
+    content: ": ";
+  }
+
+  & > div {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+  }
 }
 
 .todo-toggle {
@@ -178,15 +173,15 @@ ul {
 .todo-form {
   display: flex;
   gap: 8px;
-}
 
-.todo-form input {
-  flex: 1;
-  min-width: 0;
-}
+  input {
+    flex: 1;
+    min-width: 0;
+  }
 
-.todo-form button {
-  flex: 0 0 auto;
+  button {
+    flex: 0 0 auto;
+  }
 }
 
 .todo-header-actions {
