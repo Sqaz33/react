@@ -1,0 +1,45 @@
+{
+  "todos": [
+    {
+      "id": "3",
+      "title": "Научиться работать со state",
+      "completed": false,
+      "details": {
+        "priority": "low"
+      }
+    },
+    {
+      "id": "2",
+      "title": "Разобраться с props",
+      "completed": false,
+      "details": {
+        "priority": "normal"
+      }
+    },
+    {
+      "id": "1",
+      "title": "Изучить JSX",
+      "completed": true,
+      "details": {
+        "priority": "high"
+      }
+    },
+    {
+      "title": "sdfsf",
+      "completed": false,
+      "details": {
+        "priority": "low"
+      },
+      "id": "aQNrdlS0wcI"
+    },
+    {
+      "title": "sdfsdf",
+      "completed": false,
+      "details": {
+        "priority": "low"
+      },
+      "id": "mDro_5205xI"
+    }
+  ],
+  "$schema": "./node_modules/json-server/schema.json"
+}

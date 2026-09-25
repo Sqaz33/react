@@ -2,13 +2,13 @@ import TodoHeader from "./TodoHeader"
 import TodoForm from "./TodoForm"
 import TodoList from "./TodoList"
 import TodoLayout from "./TodoLayout"
-import { useCallback, useMemo, useReducer, useState } from "react"
+import { useCallback, useEffect, useMemo, useReducer, useState } from "react"
 import { getNextPriority } from "./priority"
 import { saveTodos } from "./fakeTodoService"
 import TodoSearch from "./TodoSearch"
 import useDebouncedValue from "./useDebouncedValue"
 import useOnlineStatus from "./useOnlineStatus"
-import useLocalStorage from "./useLocalStorage"
+import { getTodos, postTodo } from "./todoApi"
 import {
   initialSaveState,
   saveActionTypes,
@@ -20,26 +20,41 @@ import { ThemeContext } from "./ThemeContext"
 const initialTodos = [
   { id: 3, title: 'Научиться работать со state', completed: false, details: { priority: "low" } },
   { id: 2, title: 'Разобраться с props', completed: false, details: { priority: "normal" } },
-  { id: 1, title: 'Изучить JSX', completed: true, details: { priority: "high" } },
+  { id: 1, title: 'Изучить JSX1234', completed: true, details: { priority: "high" } },
 ]
-const TODO_KEY = "TODO_KEY"
 
 function App() {
-  const [todos, setTodos] = useLocalStorage(TODO_KEY, initialTodos)
+  const [todos, setTodos] = useState(initialTodos)
   const [saveState, dispatchSave] = useReducer(saveReducer, initialSaveState)
   const [searchText, setSearchText] = useState("")
   const [theme, setTheme] = useState("light")
   const debouncedSearchText = useDebouncedValue(searchText, 400)
   const isOnline = useOnlineStatus()
 
-  function addTodo(title) {
-    const newTodo = {
-      id: Date.now(),
+  useEffect(() => {
+    async function loadTodos() {
+      try {
+        const todos = await getTodos()
+        setTodos(todos)
+      } catch (error) {
+        console.error(error.message)
+      }
+    } 
+    loadTodos()
+  }, [])
+
+  async function addTodo(title) {
+    const todoData = {
       title,
       completed: false,
       details: {priority: "low"}
     }
-    setTodos(curTodos => [...curTodos, newTodo])
+    try {
+      const createdTodo = await postTodo(todoData)
+      setTodos(curTodos => [...curTodos, createdTodo])
+    } catch (error) {
+      console.error(error.message)
+    }
   }
 
   function toggleTodo(id) {

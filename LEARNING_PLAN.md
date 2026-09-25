@@ -130,7 +130,7 @@ Todo постепенно развивается в `Task Board` для небо
 
 ### Модуль 6. HTTP и REST API
 
-- [ ] HTTP-методы, URL, headers, body, JSON и status codes.
+- [x] HTTP-методы, URL, headers, body, JSON и status codes.
 - [ ] REST CRUD.
 - [ ] `fetch` и проверка `response.ok`.
 - [ ] Loading, error, empty и success states.
