@@ -23,8 +23,9 @@ function TodoItem({item, onToggleTodo, onDeleteTodo, onDuplicateTodo, onToggleTo
         <button
           onClick={() => onDeleteTodo(item.id)}
           type="button"
+          aria-label="Удалить"
         >
-          Удалить
+          X
         </button>
         <button
           onClick={() => onDuplicateTodo(item.id)}

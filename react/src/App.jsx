@@ -8,7 +8,12 @@ import { saveTodos } from "./fakeTodoService"
 import TodoSearch from "./TodoSearch"
 import useDebouncedValue from "./useDebouncedValue"
 import useOnlineStatus from "./useOnlineStatus"
-import { getTodos, postTodo } from "./todoApi"
+import {
+  getTodos,
+  postTodo,
+  patchTodo,
+  deleteTodo
+} from "./todoApi"
 import {
   initialSaveState,
   saveActionTypes,
@@ -57,34 +62,52 @@ function App() {
     }
   }
 
-  function toggleTodo(id) {
-    setTodos(
-      curTodos => curTodos.map(
-        todo => todo.id === id ?
-          {...todo, completed: !todo.completed} :
-          todo
-    ))
+  async function toggleTodo(id) {
+    try {
+      const curTodo = todos.find(todo => todo.id === id)
+      const patchedTodo = await patchTodo(
+        id,
+        {completed: !curTodo.completed}
+      )
+      setTodos(
+        curTodos => curTodos.map(
+          todo => todo.id === id ?
+            patchedTodo :
+            todo
+      ))
+    } catch(error) {
+      console.log(error.message)
+    }
   }
 
-  function toggleTodoPriority(id) {
-    setTodos(curTodos => curTodos.map(todo => { // обновляется иммутабельно - не на прямую через todos=...
-      if (todo.id === id) {
-        return {
-          ...todo,
-          details: {
-            ...todo.details,
-            priority: getNextPriority(todo.details.priority)
-          }
-        }
-      }
-      return todo
-    }))
+  async function toggleTodoPriority(id) {
+    try {
+      const curTodo = todos.find(todo => todo.id === id)
+      const nextPriority = getNextPriority(curTodo.details.priority)
+      const patchedTodo = await patchTodo(
+        id,
+        {details: {priority: nextPriority}}
+      )
+      setTodos(
+        curTodos => curTodos.map(
+          todo => todo.id === id ?
+            patchedTodo :
+            todo
+      ))
+    } catch(error) {
+      console.log(error.message)
+    }
   }
 
-  function deleteTodo(id) {
-    setTodos(
-      curTodos => curTodos.filter(todo => todo.id !== id)
-    )
+  async function deleteTask(id) {
+    try {
+      await deleteTodo(id)
+      setTodos(
+        curTodos => curTodos.filter(todo => todo.id !== id)
+      )
+    } catch(error) {
+      console.log(error.message)
+    }
   }
 
   function duplicateTodo(id) {
@@ -196,7 +219,7 @@ function App() {
           <TodoList
             todos={visibleTodos}
             onToggleTodo={toggleTodo}
-            onDeleteTodo={deleteTodo}
+            onDeleteTodo={deleteTask}
             onDuplicateTodo={duplicateTodo}
             onToggleTodoPriority={toggleTodoPriority}
           />
