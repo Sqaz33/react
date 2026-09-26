@@ -12,6 +12,8 @@ function TodoHeader({
   onSaveTodos,
   isOnline,
   onClearCompletedTodos,
+  apiMessage,
+  isApiError
 }) {
   const {theme, toggleTheme} = useTheme()
 
@@ -75,6 +77,14 @@ function TodoHeader({
           role={isSaveError ? "alert" : "status"}
         >
           {saveMessage}
+        </span>
+      )}
+      {apiMessage && (
+        <span
+          className={"api-message" + (isApiError ? " error" : "")}
+          role={isApiError ? "alert" : "status"}
+        >
+          {apiMessage}
         </span>
       )}
     </header>

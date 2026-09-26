@@ -133,7 +133,7 @@ Todo постепенно развивается в `Task Board` для небо
 - [x] HTTP-методы, URL, headers, body, JSON и status codes.
 - [x] REST CRUD.
 - [x] `fetch` и проверка `response.ok`.
-- [ ] Loading, error, empty и success states.
+- [x] Loading, error, empty и success states.
 - [ ] `AbortController` и гонки запросов.
 - [ ] Оптимистичное обновление и откат.
 - [ ] CORS на уровне, нужном frontend-разработчику.

@@ -21,6 +21,12 @@ import {
   saveReducer
 } from "./saveReducer"
 import { ThemeContext } from "./ThemeContext"
+import {
+  initialApiStatus,
+  apiActionTypes,
+  apiReducer,
+  apiStateStatuses
+} from "./apiReducer"
 
 const initialTodos = [
   { id: 3, title: 'Научиться работать со state', completed: false, details: { priority: "low" } },
@@ -33,31 +39,60 @@ function App() {
   const [saveState, dispatchSave] = useReducer(saveReducer, initialSaveState)
   const [searchText, setSearchText] = useState("")
   const [theme, setTheme] = useState("light")
+  const [apiState, dispatchApi] = useReducer(apiReducer, initialApiStatus)
   const debouncedSearchText = useDebouncedValue(searchText, 400)
   const isOnline = useOnlineStatus()
 
   useEffect(() => {
     async function loadTodos() {
       try {
+        dispatchApi({
+          type: apiActionTypes.started
+        })
         const todos = await getTodos()
+        dispatchApi({
+          type: apiActionTypes.succeeded
+        })
         setTodos(todos)
       } catch (error) {
+        dispatchApi({
+          type: apiActionTypes.failed,
+          payload: {
+            message: error.message
+          }
+        })
         console.error(error.message)
       }
     } 
     loadTodos()
   }, [])
 
-  async function addTodo(title) {
+  async function addTodo(
+    title,
+    completed = false,
+    priority = "low")
+  {
     const todoData = {
       title,
-      completed: false,
-      details: {priority: "low"}
+      completed,
+      details: {priority}
     }
     try {
+      dispatchApi({
+        type: apiActionTypes.started
+      })
       const createdTodo = await postTodo(todoData)
+      dispatchApi({
+        type: apiActionTypes.succeeded
+      })
       setTodos(curTodos => [...curTodos, createdTodo])
     } catch (error) {
+      dispatchApi({
+        type: apiActionTypes.failed,
+        payload: {
+          message: error.message
+        }
+      })
       console.error(error.message)
     }
   }
@@ -65,10 +100,16 @@ function App() {
   async function toggleTodo(id) {
     try {
       const curTodo = todos.find(todo => todo.id === id)
+      dispatchApi({
+        type: apiActionTypes.started
+      })
       const patchedTodo = await patchTodo(
         id,
         {completed: !curTodo.completed}
       )
+      dispatchApi({
+        type: apiActionTypes.succeeded
+      })
       setTodos(
         curTodos => curTodos.map(
           todo => todo.id === id ?
@@ -76,6 +117,12 @@ function App() {
             todo
       ))
     } catch(error) {
+      dispatchApi({
+        type: apiActionTypes.failed,
+        payload: {
+          message: error.message
+        }
+      })
       console.log(error.message)
     }
   }
@@ -84,10 +131,16 @@ function App() {
     try {
       const curTodo = todos.find(todo => todo.id === id)
       const nextPriority = getNextPriority(curTodo.details.priority)
+      dispatchApi({
+        type: apiActionTypes.started
+      })
       const patchedTodo = await patchTodo(
         id,
         {details: {priority: nextPriority}}
       )
+      dispatchApi({
+        type: apiActionTypes.succeeded
+      })
       setTodos(
         curTodos => curTodos.map(
           todo => todo.id === id ?
@@ -95,41 +148,43 @@ function App() {
             todo
       ))
     } catch(error) {
+      dispatchApi({
+        type: apiActionTypes.failed,
+        payload: {
+          message: error.message
+        }
+      })
       console.log(error.message)
     }
   }
 
   async function deleteTask(id) {
     try {
+      dispatchApi({
+        type: apiActionTypes.started
+      })
       await deleteTodo(id)
+      dispatchApi({
+        type: apiActionTypes.succeeded
+      })
       setTodos(
         curTodos => curTodos.filter(todo => todo.id !== id)
       )
     } catch(error) {
+      dispatchApi({
+        type: apiActionTypes.failed,
+        payload: {
+          message: error.message
+        }
+      })
       console.log(error.message)
     }
   }
 
-  function duplicateTodo(id) {
-    const newId = Date.now();
-    setTodos(
-      curTodos => {
-        const found = curTodos.find(todo => todo.id === id)
-        if (!found) {
-          return curTodos
-        }
-        const foundClone = structuredClone(found)
-        const {title} = foundClone
-        const newTitle = title + " (копия)"
-        const duplicate = {
-          ...foundClone,
-          id: newId,
-          title: newTitle,
-          completed: false
-        }
-        return [...curTodos, duplicate]
-      }
-    )
+  async function duplicateTodo(id) { // todo
+    const found = todos.find(todo => todo.id == id)
+    const title = found.title + " (копия)"
+    await addTodo(title, found.completed, found.details.priority)
   }
 
   const totalCount = todos.length
@@ -184,6 +239,8 @@ function App() {
   const isSaving = saveState.status === saveStateStatuses.saving
   const isSaveError = saveState.status === saveStateStatuses.error
   const saveMessage = saveState.message
+  const apiMessage = apiState.message
+  const isApiError = apiState.status === apiStateStatuses.error
 
   const toggleTheme = useCallback(() => {
     setTheme(curTheme => curTheme === "light" ? "dark" : "light")
@@ -208,6 +265,8 @@ function App() {
           onSaveTodos={handleSaveTodos}
           isOnline={isOnline}
           onClearCompletedTodos={clearCompletedTodos}
+          apiMessage={apiMessage  }
+          isApiError={isApiError}
         />
         <TodoForm onAddTodo={addTodo} />
         <section aria-labelledby="todo-list-heading">

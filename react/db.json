@@ -9,28 +9,12 @@
       }
     },
     {
-      "id": "2",
-      "title": "Разобраться с props",
-      "completed": false,
-      "details": {
-        "priority": "normal"
-      }
-    },
-    {
       "id": "1",
       "title": "Изучить JSX",
       "completed": true,
       "details": {
-        "priority": "high"
-      }
-    },
-    {
-      "title": "sdfsf",
-      "completed": false,
-      "details": {
         "priority": "low"
-      },
-      "id": "aQNrdlS0wcI"
+      }
     },
     {
       "title": "sdfsdf",
@@ -39,6 +23,46 @@
         "priority": "low"
       },
       "id": "mDro_5205xI"
+    },
+    {
+      "title": "Разобраться с props (копия)",
+      "completed": false,
+      "details": {
+        "priority": "low"
+      },
+      "id": "bWly6szO7jw"
+    },
+    {
+      "title": "Разобраться с props (копия)",
+      "completed": false,
+      "details": {
+        "priority": "low"
+      },
+      "id": "GMiQ-Sac9Qk"
+    },
+    {
+      "title": "Разобраться с props (копия)",
+      "completed": false,
+      "details": {
+        "priority": "low"
+      },
+      "id": "XVitAHalnF8"
+    },
+    {
+      "title": "Разобраться с props (копия)",
+      "completed": false,
+      "details": {
+        "priority": "low"
+      },
+      "id": "jrORkC2wCyc"
+    },
+    {
+      "title": "Научиться работать со state (копия)",
+      "completed": false,
+      "details": {
+        "priority": "low"
+      },
+      "id": "WR96kkr_BIA"
     }
   ],
   "$schema": "./node_modules/json-server/schema.json"
