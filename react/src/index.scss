@@ -72,6 +72,12 @@
   button {
     width: fit-content;
   }
+
+  nav {
+    display: flex;
+    gap: tokens.$space-small;
+    border: 1px solid var(--border-color);
+  }
 }
 
 .api-message.error {

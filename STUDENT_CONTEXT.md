@@ -59,7 +59,7 @@ React изучается с начального уровня. Предыдущ�
 
 ## Текущая контрольная точка
 
-- Модули 0–6 пройдены в учебном Todo; далее модуль 7 о SPA и маршрутизации.
+- Модули 0–6 пройдены; модуль 7 о SPA и маршрутизации начат.
 - Рабочая архитектура: `App` отображает UI, `useTodos` управляет server state,
   `todoApi` выполняет React-независимые HTTP-запросы.
 - Пользователь различает query (`GET`) и mutation (`POST/PATCH/PUT/DELETE`), а
@@ -70,6 +70,11 @@ React изучается с начального уровня. Предыдущ�
   проверил success и отключённый server, различает optimistic и pessimistic flow.
 - CORS изучен на уровне frontend-диагностики: origin, server headers, preflight
   `OPTIONS` и бесполезность `mode: "no-cors"` как обхода.
+- Подключён React Router 7 Declarative Mode: пользователь понимает отношение
+  `BrowserRouter → App → Routes → Route`, использует `Link`, wildcard 404 и
+  канонический redirect через `Navigate replace`.
+- Todo state пока находится внутри `TodoPage` и теряется при переходе на другую
+  страницу; следующий архитектурный шаг — общий layout route с `Outlet`.
 - Старые учебные `fakeTodoService`, `saveReducer` и ошибочно названный
   `useApi.js` пользователь намеренно оставляет для последующего просмотра; не
   удалять их автоматически и не подключать к рабочему приложению.
