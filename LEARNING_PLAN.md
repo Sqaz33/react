@@ -144,7 +144,7 @@ Todo постепенно развивается в `Task Board` для небо
 ### Модуль 7. Маршрутизация и состояние приложения
 
 - [x] SPA и клиентская маршрутизация.
-- [ ] React Router: routes, links и layout.
+- [x] React Router: routes, links и layout.
 - [ ] Параметры URL и страница задачи.
 - [ ] Query string для фильтров.
 - [ ] 404 и навигация.

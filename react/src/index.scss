@@ -72,12 +72,6 @@
   button {
     width: fit-content;
   }
-
-  nav {
-    display: flex;
-    gap: tokens.$space-small;
-    border: 1px solid var(--border-color);
-  }
 }
 
 .api-message.error {
@@ -180,4 +174,10 @@ ul {
   gap: tokens.$space-small;
   flex-wrap: wrap;
   align-items: center;
+}
+
+.todo-nav {
+  display: flex;
+  gap: tokens.$space-small;
+  border: 1px solid var(--border-color);
 }

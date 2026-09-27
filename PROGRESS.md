@@ -5,7 +5,7 @@
 ## Текущий статус
 
 - Текущий модуль: **7. Маршрутизация и состояние приложения**.
-- Текущий урок: **базовая SPA-маршрутизация принята; далее общий layout route**.
+- Текущий урок: **nested layout route и `Outlet` приняты; далее URL-параметр**.
 - Состояние проекта: Vite-приложение находится в `D:\react\react`; CRUD через
   локальный JSON Server реализован. Сетевой слой разделён на `App`, `useTodos`
   и `todoApi`; production-сборка и lint проходят.
@@ -92,6 +92,14 @@
   через `Navigate replace`, внутренние переходы выполняются через `Link`.
 - Прямой GET `/settings` на Vite development server возвращает `index.html` с
   кодом 200, поэтому refresh вложенного SPA-route работает локально.
+- Pathless `AppLayout` остаётся смонтированным между child routes, владеет
+  `useTodos`, темой, общей навигацией и единственным `<main>`.
+- `Outlet context` передаёт Todo server state и actions в `TodoPage`; переходы
+  на настройки и обратно больше не пересоздают `useTodos` и не запускают новый
+  GET из-за смены child route.
+- Пользователь различает чистую client SPA, MPA, CSR, SSR, SSG и гибрид: для
+  интерактивного B2B-кабинета SPA уместна, публичные content routes чаще выгодно
+  предварительно рендерить на server или build-time.
 
 ## Требует внимания
 
@@ -121,11 +129,26 @@
 
 ## Следующее действие
 
-Разобрать nested route и `Outlet`: поднять общий Theme/server state выше сменяемых
-pages, чтобы переход на настройки не размонтировал `useTodos`. После этого
-добавить динамический `/todos/:todoId` и чтение параметра URL.
+Добавить динамический `/todos/:todoId`, читать параметр через `useParams` и
+создать страницу задачи с корректными loading/not-found состояниями и ссылкой
+из списка. Затем перенести фильтры в query string.
 
 ## Журнал занятий
+
+### 2026-09-27 — layout route и `Outlet` приняты
+
+- Создан pathless `AppLayout`; вложенные `todos`, `settings` и `*` не добавляют
+  лишний segment родителя и используют relative child paths.
+- `useTodos` и Theme state подняты из `TodoPage` в сохраняющийся parent layout.
+- `Outlet` рендерит выбранную child page, а `Outlet context` передаёт Todo data и
+  actions без отдельного глобального Context.
+- Общая навигация вынесена из `TodoHeader`; её SCSS больше не зависит от
+  descendant selector `.todo-header nav`, а использует `.todo-nav`.
+- В DOM остаётся один `<main>` из `TodoLayout`; дочерние pages возвращают только
+  своё содержимое.
+- Разобраны области применения чистой SPA, MPA, CSR, SSR, SSG и современного
+  гибридного rendering по маршрутам.
+- `npm run build` и `npm run lint` завершились успешно.
 
 ### 2026-09-27 — базовая SPA-маршрутизация принята
 

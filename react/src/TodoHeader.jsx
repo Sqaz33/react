@@ -1,6 +1,5 @@
 import TodoContent from "./TodoContent"
 import { useTheme } from "./ThemeContext"
-import { Link } from "react-router"
 
 function TodoHeader({
   todosStats, 
@@ -80,10 +79,6 @@ function TodoHeader({
           {mutationMessage}
         </span>
       )}
-      <nav aria-label="Основная навигация">
-        <Link to="/settings">Настройки</Link>
-        <Link to="/todos">Задачи</Link>
-      </nav>
     </header>
   )
 }

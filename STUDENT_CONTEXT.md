@@ -73,8 +73,12 @@ React изучается с начального уровня. Предыдущ�
 - Подключён React Router 7 Declarative Mode: пользователь понимает отношение
   `BrowserRouter → App → Routes → Route`, использует `Link`, wildcard 404 и
   канонический redirect через `Navigate replace`.
-- Todo state пока находится внутри `TodoPage` и теряется при переходе на другую
-  страницу; следующий архитектурный шаг — общий layout route с `Outlet`.
+- Реализован pathless `AppLayout` с nested routes и `Outlet`; `useTodos` и Theme
+  state сохраняются между child pages, а TodoPage читает данные через
+  `useOutletContext`.
+- Пользователь понимает, что чистые SPA не исчезли, но современные production
+  приложения часто смешивают CSR, SSR и SSG по маршрутам; B2B-интерфейс остаётся
+  подходящим SPA-сценарием.
 - Старые учебные `fakeTodoService`, `saveReducer` и ошибочно названный
   `useApi.js` пользователь намеренно оставляет для последующего просмотра; не
   удалять их автоматически и не подключать к рабочему приложению.

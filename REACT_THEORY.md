@@ -1619,6 +1619,48 @@ router provider, но `Routes` не обязан быть его непосре�
 должен вернуть `index.html`, после чего client router выберет page. Vite делает
 такой fallback в development; production hosting настраивается отдельно.
 
+## 55. Nested routes, layout route и `Outlet`
+
+Nested routes образуют дерево совпавших routes. При переходе между дочерними
+страницами совпавший parent route остаётся смонтированным, поэтому его state и
+providers сохраняются. Layout route без `path` добавляет общую оболочку, но не
+добавляет URL segment.
+
+`Outlet` — место в parent layout, куда router рендерит текущий child element.
+`Outlet context` передаёт значение только дочернему route tree, а
+`useOutletContext()` читает его на page. Это удобнее отдельного глобального
+Context, когда данные принадлежат именно одной route-ветке.
+
+В проекте `AppLayout` владеет `useTodos`, Theme state, навигацией и общим
+`TodoLayout`. `TodoPage` читает Todo pack из outlet context. Поэтому переход на
+`/settings` меняет child element, но не уничтожает server state. Поиск остаётся
+локальным page-state и при размонтировании TodoPage сбрасывается намеренно.
+
+Child paths `todos` и `settings` записаны относительно parent. Pathless parent
+не меняет результат: URL остаются `/todos` и `/settings`. Если бы parent имел
+`path="app"`, тот же child `todos` дал бы `/app/todos`.
+
+## 56. Когда выбирать SPA, SSR, SSG и гибрид
+
+CSR — **Client-Side Rendering**, рендеринг в browser. MPA — **Multi-Page
+Application**, приложение с загрузкой нового документа для страниц. SSR —
+**Server-Side Rendering**, создание HTML на server для запроса. SSG — **Static
+Site Generation**, создание HTML заранее при build.
+
+Чистая SPA подходит долгим интерактивным сессиям: B2B-кабинетам, dashboard,
+редакторам и административным системам, где SEO не является основной целью.
+Она упрощает статический hosting и быстрые переходы после запуска, но первый
+полезный экран ждёт JavaScript и часто последующий API request.
+
+SSG подходит заранее известному content: документации, лендингам и блогам. SSR
+нужен для актуального или персонализированного HTML на запрос. Публичные страницы
+с важным SEO и короткими посещениями обычно не выигрывают от чистой CSR-SPA.
+
+Современный гибрид выбирает стратегию по route или component: initial HTML может
+приходить с server/build, hydration подключает interactivity, а последующие
+переходы остаются клиентскими и сохраняют shared layouts. Поэтому SPA-поведение
+распространено, даже когда всё приложение архитектурно не является чистой SPA.
+
 ## Частые ошибки, которые уже встречались
 
 - Запуск npm не в каталоге с `package.json`.
