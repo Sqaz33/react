@@ -188,3 +188,22 @@
   flex: 1;
   min-width: 0;
 }
+
+.todo-title-link:focus-visible {
+  @include mixins.focus-ring($offset: 2px)
+}
+
+.todo-nav-link {
+  color: inherit;
+  font-weight: 500;
+}
+
+.todo-nav-link:focus-visible {
+  @include mixins.focus-ring($offset: 2px)
+}
+
+.todo-nav-link--active {
+  font-weight: 700;
+  text-decoration-line: underline;
+  text-decoration-thickness: 4px;
+}

@@ -1,9 +1,8 @@
 import { useCallback, useState, useMemo } from "react"
-import { Outlet } from "react-router"
+import { NavLink, Outlet } from "react-router"
 import { ThemeContext } from "../ThemeContext"
 import useTodos from "../useTodos"
 import TodoLayout from "../TodoLayout"
-import { Link } from "react-router"
 
 function AppLayout() {
   const todosPack = useTodos()
@@ -16,6 +15,12 @@ function AppLayout() {
     [theme, toggleTheme]
   )
 
+  const navClass = ({isActive}) => {
+    return isActive
+      ? "todo-nav-link todo-nav-link--active"
+      : "todo-nav-link"
+  }
+
   return (
     <ThemeContext value={themeContextValue}>
       <TodoLayout>
@@ -23,8 +28,9 @@ function AppLayout() {
           aria-label="Основная навигация"
           className="todo-nav"
         >
-          <Link to="/settings">Настройки</Link>
-          <Link to="/todos">Задачи</Link>
+
+          <NavLink className={navClass} to="/settings" end>Настройки</NavLink>
+          <NavLink className={navClass} to="/todos">Задачи</NavLink>
         </nav>
         <Outlet context={todosPack}/>
       </TodoLayout>
