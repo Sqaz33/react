@@ -1,7 +1,7 @@
 const URL = "http://localhost:3001"
 
-export async function getTodos() {
-  const response = await fetch(URL + "/todos")
+export async function getTodos({signal}) {
+  const response = await fetch(URL + "/todos", {signal})
 
   if (!response.ok) {
     throw new Error(`HTTP error: ${response.status}`)

@@ -13,7 +13,8 @@ function TodoHeader({
   isOnline,
   onClearCompletedTodos,
   apiMessage,
-  isApiError
+  isApiError,
+  isDeletingCompleted
 }) {
   const {theme, toggleTheme} = useTheme()
 
@@ -58,7 +59,7 @@ function TodoHeader({
         </button>
         <button 
           onClick={onClearCompletedTodos}
-          disabled={!hasCompletedTodos}
+          disabled={!hasCompletedTodos || isDeletingCompleted}
           type="button"
         >
           Удалить выполненные
