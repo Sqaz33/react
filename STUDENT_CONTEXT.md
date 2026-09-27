@@ -59,13 +59,17 @@ React изучается с начального уровня. Предыдущ�
 
 ## Текущая контрольная точка
 
-- Модули 0–5 пройдены в учебном Todo; модуль 6 HTTP/REST продолжается.
+- Модули 0–6 пройдены в учебном Todo; далее модуль 7 о SPA и маршрутизации.
 - Рабочая архитектура: `App` отображает UI, `useTodos` управляет server state,
   `todoApi` выполняет React-независимые HTTP-запросы.
 - Пользователь различает query (`GET`) и mutation (`POST/PATCH/PUT/DELETE`), а
   также server mutation и прямую мутацию JavaScript-объекта.
 - Query загрузки и mutations имеют отдельные reducer-state; на текущем этапе
   разрешена только одна mutation за раз, controls блокируются.
+- На `toggleTodo` реализованы optimistic update и точечный rollback; пользователь
+  проверил success и отключённый server, различает optimistic и pessimistic flow.
+- CORS изучен на уровне frontend-диагностики: origin, server headers, preflight
+  `OPTIONS` и бесполезность `mode: "no-cors"` как обхода.
 - Старые учебные `fakeTodoService`, `saveReducer` и ошибочно названный
   `useApi.js` пользователь намеренно оставляет для последующего просмотра; не
   удалять их автоматически и не подключать к рабочему приложению.

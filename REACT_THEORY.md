@@ -1572,6 +1572,30 @@ Context не исправляет гонки и не проектирует serv
 остаются проще. В крупных приложениях похожую работу часто берут TanStack Query
 или RTK Query, но библиотека не отменяет понимание query/mutation и границ слоёв.
 
+## 53. CORS и optimistic update
+
+CORS — **Cross-Origin Resource Sharing**, обмен ресурсами между разными
+источниками. Origin состоит из protocol, host и port, поэтому Vite на `5173` и
+JSON Server на `3001` являются разными origins. Browser разрешает JavaScript
+прочитать cross-origin response только при подходящих CORS response headers.
+
+JSON-запрос с `Content-Type: application/json` может сначала вызвать preflight:
+browser отправляет `OPTIONS` и проверяет разрешённые origin, method и headers.
+CORS настраивается на server или через development proxy; `mode: "no-cors"`
+возвращает непрозрачный response и не решает задачу frontend-приложения.
+
+Пессимистичное обновление ждёт server-response и только потом меняет UI.
+Optimistic update меняет UI сразу, предполагая успех запроса. До изменения
+нужно сохранить минимальные предыдущие данные для rollback. При success
+локальная запись заменяется server-response; при error возвращается прежнее
+значение и показывается ошибка.
+
+Rollback должен быть точечным. Возврат старого снимка всего массива способен
+стереть независимые изменения, если позже появятся параллельные mutations.
+Текущий `toggleTodo` сохраняет прежний `completed`, оптимистично меняет только
+нужную задачу и откатывает только это поле. Общая блокировка mutations пока
+исключает повторный toggle до завершения запроса.
+
 ## Частые ошибки, которые уже встречались
 
 - Запуск npm не в каталоге с `package.json`.

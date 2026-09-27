@@ -59,25 +59,38 @@ export default function useTodos() {
 	}
 
 	async function toggleTodo(id) {
+		const curTodo = todos.find(todo => todo.id === id)
+		const curCompleted = curTodo.completed
 		try {
-			const curTodo = todos.find(todo => todo.id === id)
 			dispatchMutation({
 				type: apiActionTypes.started
 			})
+			setTodos(
+				curTodos => curTodos.map(
+					todo => todo.id === id ?
+						{...todo, completed: !curCompleted} :
+						todo
+			))
 			const patchedTodo = await patchTodo(
 				id,
 				{completed: !curTodo.completed}
 			)
-			dispatchMutation({
-				type: apiActionTypes.succeeded
-			})
-			setTodos(
+				setTodos(
 				curTodos => curTodos.map(
 					todo => todo.id === id ?
 						patchedTodo :
 						todo
 			))
+			dispatchMutation({
+				type: apiActionTypes.succeeded
+			})
 		} catch(error) {
+			setTodos(
+				curTodos => curTodos.map(
+					todo => todo.id === id ?
+						{...todo, completed: curCompleted} :
+						todo
+			))
 			dispatchMutation({
 				type: apiActionTypes.failed,
 				payload: {
