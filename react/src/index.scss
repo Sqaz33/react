@@ -95,7 +95,6 @@
   padding: 4px 4px;
 }
 
-
 @media (min-width: 560px) {
   .todo-item {
     grid-template-columns: minmax(0, 1fr) auto;
@@ -112,7 +111,7 @@
   }
 }
 
-ul {
+.todo-list {
   margin: 16px 0 0;
   padding: 0;
   list-style: none;
@@ -180,4 +179,12 @@ ul {
   display: flex;
   gap: tokens.$space-small;
   border: 1px solid var(--border-color);
+  padding: tokens.$space-small;
+}
+
+.todo-title-link {
+  color: inherit;
+  display: flex;
+  flex: 1;
+  min-width: 0;
 }

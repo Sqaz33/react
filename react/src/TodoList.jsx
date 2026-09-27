@@ -6,7 +6,7 @@ function TodoList({todos, ...itemProps}) {
   }
 
   return (
-    <ul>
+    <ul className="todo-list">
       {todos.map(item => (
         <TodoItem
           key={item.id}

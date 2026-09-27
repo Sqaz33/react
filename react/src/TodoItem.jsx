@@ -1,3 +1,4 @@
+import { Link } from "react-router"
 import TodoContent from "./TodoContent"
 import { PRIORITY_LABELS } from "./priority"
 import styled from "styled-components"
@@ -18,15 +19,21 @@ function TodoItem({
 ) {
   return (
     <li className="todo-item">
-      <label className="todo-toggle">
+      <div className="todo-toggle">
         <input
           type="checkbox"
           checked={item.completed}
           disabled={isMutationRunning}
           onChange={() => onToggleTodo(item.id)}
+          aria-label={`Статус задачи «${item.title}»`}
         />
-        <TodoContent item={item} />
-      </label>
+        <Link
+          to={item.id}
+          className="todo-title-link"
+        >
+          <TodoContent item={item} />
+        </Link>
+      </div>
       <div className="todo-actions">
         <button
           type="button"

@@ -1,46 +1,6 @@
 {
   "todos": [
     {
-      "id": "3",
-      "title": "Научиться работать со state",
-      "completed": false,
-      "details": {
-        "priority": "normal"
-      }
-    },
-    {
-      "id": "1",
-      "title": "Изучить JSX",
-      "completed": true,
-      "details": {
-        "priority": "low"
-      }
-    },
-    {
-      "title": "sdfsdf",
-      "completed": false,
-      "details": {
-        "priority": "high"
-      },
-      "id": "mDro_5205xI"
-    },
-    {
-      "title": "Разобраться с props (копия)",
-      "completed": false,
-      "details": {
-        "priority": "low"
-      },
-      "id": "bWly6szO7jw"
-    },
-    {
-      "title": "Разобраться с props (копия)",
-      "completed": false,
-      "details": {
-        "priority": "low"
-      },
-      "id": "GMiQ-Sac9Qk"
-    },
-    {
       "title": "sdfsdf (копия)",
       "completed": false,
       "details": {
@@ -49,12 +9,12 @@
       "id": "j4DMf0ZeIus"
     },
     {
-      "title": "Разобраться с props (копия) (копия)",
+      "title": "Разобраться с props (копия) (копия) (копия) (копия)",
       "completed": false,
       "details": {
         "priority": "low"
       },
-      "id": "4ydF4MPT0ME"
+      "id": "yHc9_jLgMTU"
     },
     {
       "title": "Разобраться с props (копия) (копия)",
@@ -62,71 +22,191 @@
       "details": {
         "priority": "normal"
       },
-      "id": "FtkW97XMn1c"
+      "id": "yY04Yoq"
     },
     {
       "title": "Разобраться с props (копия) (копия)",
-      "completed": false,
+      "completed": true,
       "details": {
-        "priority": "low"
+        "priority": "normal"
       },
-      "id": "PyOBE_DYGno"
+      "id": "CaGwKOn"
     },
     {
       "title": "Разобраться с props (копия) (копия)",
-      "completed": false,
+      "completed": true,
       "details": {
-        "priority": "low"
+        "priority": "normal"
       },
-      "id": "lHSsp6H3_-8"
-    },
-    {
-      "title": "Разобраться с props (копия) (копия)",
-      "completed": false,
-      "details": {
-        "priority": "low"
-      },
-      "id": "T9RNvKCa0HI"
-    },
-    {
-      "title": "Разобраться с props (копия) (копия) (копия)",
-      "completed": false,
-      "details": {
-        "priority": "low"
-      },
-      "id": "D9HOSTPmiaE"
-    },
-    {
-      "title": "Разобраться с props (копия) (копия) (копия)",
-      "completed": false,
-      "details": {
-        "priority": "low"
-      },
-      "id": "oOb7YL__Do8"
-    },
-    {
-      "title": "Разобраться с props (копия) (копия) (копия)",
-      "completed": false,
-      "details": {
-        "priority": "low"
-      },
-      "id": "kbQ_eZxSyK4"
-    },
-    {
-      "title": "Разобраться с props (копия) (копия) (копия)",
-      "completed": false,
-      "details": {
-        "priority": "low"
-      },
-      "id": "JlyWXbAPbHk"
+      "id": "A7UVv-y"
     },
     {
       "title": "Разобраться с props (копия) (копия) (копия) (копия)",
-      "completed": false,
+      "completed": true,
       "details": {
         "priority": "low"
       },
-      "id": "yHc9_jLgMTU"
+      "id": "XCoap_I"
+    },
+    {
+      "title": "Разобраться с props (копия) (копия) (копия)",
+      "completed": true,
+      "details": {
+        "priority": "low"
+      },
+      "id": "5JNr1SN"
+    },
+    {
+      "title": "Разобраться с props (копия) (копия)",
+      "completed": true,
+      "details": {
+        "priority": "normal"
+      },
+      "id": "o921g3y"
+    },
+    {
+      "title": "Разобраться с props (копия) (копия)",
+      "completed": true,
+      "details": {
+        "priority": "normal"
+      },
+      "id": "e5zZNuf"
+    },
+    {
+      "title": "Разобраться с props (копия) (копия)",
+      "completed": true,
+      "details": {
+        "priority": "normal"
+      },
+      "id": "zR1KWYD"
+    },
+    {
+      "title": "sdfsdf (копия) (копия)",
+      "completed": true,
+      "details": {
+        "priority": "low"
+      },
+      "id": "230TOww"
+    },
+    {
+      "title": "Разобраться с props (копия) (копия)",
+      "completed": true,
+      "details": {
+        "priority": "normal"
+      },
+      "id": "jm-MLhq"
+    },
+    {
+      "title": "sdfsdf (копия)",
+      "completed": true,
+      "details": {
+        "priority": "high"
+      },
+      "id": "VV_2dHd"
+    },
+    {
+      "title": "Разобраться с props (копия) (копия)",
+      "completed": true,
+      "details": {
+        "priority": "normal"
+      },
+      "id": "PdYohOd"
+    },
+    {
+      "title": "Разобраться с props (копия) (копия)",
+      "completed": true,
+      "details": {
+        "priority": "normal"
+      },
+      "id": "-kHlwtn"
+    },
+    {
+      "title": "Научиться работать со state (копия)",
+      "completed": true,
+      "details": {
+        "priority": "normal"
+      },
+      "id": "gk3ZNAv"
+    },
+    {
+      "title": "Разобраться с props (копия) (копия) (копия)",
+      "completed": true,
+      "details": {
+        "priority": "low"
+      },
+      "id": "398nNH2"
+    },
+    {
+      "title": "Разобраться с props (копия) (копия) (копия)",
+      "completed": true,
+      "details": {
+        "priority": "low"
+      },
+      "id": "PA-xEe0"
+    },
+    {
+      "title": "Разобраться с props (копия) (копия)",
+      "completed": true,
+      "details": {
+        "priority": "normal"
+      },
+      "id": "o3J3D01"
+    },
+    {
+      "title": "Разобраться с props (копия) (копия) (копия)",
+      "completed": true,
+      "details": {
+        "priority": "low"
+      },
+      "id": "ApESrmE"
+    },
+    {
+      "title": "Разобраться с props (копия) (копия)",
+      "completed": true,
+      "details": {
+        "priority": "normal"
+      },
+      "id": "MqHRyco"
+    },
+    {
+      "title": "Научиться работать со state (копия)",
+      "completed": true,
+      "details": {
+        "priority": "normal"
+      },
+      "id": "ffstMge"
+    },
+    {
+      "title": "Научиться работать со state (копия)",
+      "completed": true,
+      "details": {
+        "priority": "normal"
+      },
+      "id": "_GnhRUM"
+    },
+    {
+      "title": "Разобраться с props (копия) (копия) (копия) (копия)",
+      "completed": true,
+      "details": {
+        "priority": "low"
+      },
+      "id": "YuPSA5P"
+    },
+    {
+      "title": "sdfsdf (копия) (копия) (копия)",
+      "completed": true,
+      "details": {
+        "priority": "low"
+      },
+      "id": "a-YxZG4"
+    },
+    {
+      "title": "sdfsdf (копия) (копия)",
+      "completed": true,
+      "details": {
+        "priority": "high"
+      },
+      "id": "zVaGPh_"
     }
   ],
   "$schema": "./node_modules/json-server/schema.json"

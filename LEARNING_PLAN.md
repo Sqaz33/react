@@ -145,7 +145,7 @@ Todo постепенно развивается в `Task Board` для небо
 
 - [x] SPA и клиентская маршрутизация.
 - [x] React Router: routes, links и layout.
-- [ ] Параметры URL и страница задачи.
+- [x] Параметры URL и страница задачи.
 - [ ] Query string для фильтров.
 - [ ] 404 и навигация.
 - [ ] Когда достаточно local state/Context, а когда нужен отдельный state manager.
