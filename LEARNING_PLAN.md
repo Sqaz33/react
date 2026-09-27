@@ -134,10 +134,10 @@ Todo постепенно развивается в `Task Board` для небо
 - [x] REST CRUD.
 - [x] `fetch` и проверка `response.ok`.
 - [x] Loading, error, empty и success states.
-- [ ] `AbortController` и гонки запросов.
+- [x] `AbortController` и базовая защита от гонок запросов.
 - [ ] Оптимистичное обновление и откат.
 - [ ] CORS на уровне, нужном frontend-разработчику.
-- [ ] Отделение API-клиента от компонентов.
+- [x] Отделение API-клиента от компонентов.
 
 Практика: Task Board работает с учебным REST API.
 

@@ -2,36 +2,30 @@ import TodoHeader from "./TodoHeader"
 import TodoForm from "./TodoForm"
 import TodoList from "./TodoList"
 import TodoLayout from "./TodoLayout"
-import { useCallback, useMemo, useReducer, useState } from "react"
-import { saveTodos } from "./fakeTodoService"
+import { useCallback, useMemo, useState } from "react"
 import TodoSearch from "./TodoSearch"
 import useDebouncedValue from "./useDebouncedValue"
 import useOnlineStatus from "./useOnlineStatus"
-import {
-  initialSaveState,
-  saveActionTypes,
-  saveStateStatuses,
-  saveReducer
-} from "./saveReducer"
 import { ThemeContext } from "./ThemeContext"
-import {
-  apiStateStatuses
-} from "./apiReducer"
-import useTodos from "./todoLifeCycle"
+import { apiStatuses } from "./apiReducer"
+import useTodos from "./useTodos"
 
 function App() {
   const {
-    todos, 
-    apiState, 
-    addTodo, 
+    todos,
+    loadState,
+		mutationState,
+
+    addTodo,
     toggleTodo,
-    toggleTodoPriority, 
-    deleteTask} = useTodos()
-  const [saveState, dispatchSave] = useReducer(saveReducer, initialSaveState)
+    toggleTodoPriority,
+    deleteTask,
+		duplicateTodo,
+		clearCompletedTodos
+  } = useTodos()
   const [searchText, setSearchText] = useState("")
   const debouncedSearchText = useDebouncedValue(searchText, 400)
   const isOnline = useOnlineStatus()
-  const [isDeletingCompleted, setIsDeletedCompleted] = useState(false)
   const [theme, setTheme] = useState("light")
   const toggleTheme = useCallback(() => {
     setTheme(curTheme => curTheme === "light" ? "dark" : "light")
@@ -47,11 +41,6 @@ function App() {
   const nextTodo = todos.find(todo => !todo.completed)
   const hasCompletedTodos = todos.some(todo => todo.completed)
   const areAllTodosCompleted = todos.length > 0 && todos.every(todo => todo.completed)
-  const isSaving = saveState.status === saveStateStatuses.saving
-  const isSaveError = saveState.status === saveStateStatuses.error
-  const saveMessage = saveState.message
-  const apiMessage = apiState.message
-  const isApiError = apiState.status === apiStateStatuses.error
 
   const visibleTodos = useMemo(() => {
     const sortedTodos = [...todos].sort(
@@ -69,42 +58,19 @@ function App() {
     )
   }, [todos, debouncedSearchText])
 
-  async function handleSaveTodos() {
-    dispatchSave({type: saveActionTypes.started})
-    try {
-      const {savedCount} = await saveTodos(todos)
-      dispatchSave({
-        type: saveActionTypes.succeeded,
-        payload: { savedCount }
-      })
-    } catch (error) {
-      const {message} = error
-      dispatchSave({
-        type: saveActionTypes.failed,
-        payload: { message }
-      })
-    }
-  }
 
-  async function duplicateTodo(id) {
-    const found = todos.find(todo => todo.id == id)
-    const title = found.title + " (копия)"
-    await addTodo(title, found.completed, found.details.priority)
-  }
-
-  // const delayedSearch = debounce()x
+  // const delayedSearch = debounce()
   function handleSearchTextChange(text) {
     setSearchText(text)
   }
 
-  async function clearCompletedTodos() { 
-    setIsDeletedCompleted(true)
-    const completed = todos.map(todo => todo.completed)
-    for (const todo of completed) {
-      await deleteTask(todo)
-    }
-    setIsDeletedCompleted(false)
-  }
+  const isLoadingRunning = loadState.status === apiStatuses.running
+  const loadingMessage = loadState.message
+  const isLoadingError = loadState.status === apiStatuses.error
+  const isLoadingSuccess = loadState.status === apiStatuses.success
+  const isMutationRunning = mutationState.status === apiStatuses.running
+  const mutationMessage = mutationState.message
+  const isMutationError = mutationState.status === apiStatuses.error
 
   return (
     <ThemeContext value={themeContextValue}>
@@ -114,30 +80,35 @@ function App() {
           nextTodo={nextTodo}
           hasCompletedTodos={hasCompletedTodos}
           areAllTodosCompleted={areAllTodosCompleted}
-          isSaving={isSaving}
-          saveMessage={saveMessage}
-          isSaveError={isSaveError}
-          onSaveTodos={handleSaveTodos}
           isOnline={isOnline}
           onClearCompletedTodos={clearCompletedTodos}
-          apiMessage={apiMessage}
-          isApiError={isApiError}
-          isDeletingCompleted={isDeletingCompleted}
+          loadingMessage={loadingMessage}
+          isLoadingError={isLoadingError}
+          isMutationRunning={isMutationRunning}
+          mutationMessage={mutationMessage}
+          isMutationError={isMutationError}
         />
-        <TodoForm onAddTodo={addTodo} />
+        <TodoForm 
+          onAddTodo={addTodo} 
+          isLoadingRunning={isLoadingRunning}
+          isMutationRunning={isMutationRunning}
+        />
         <section aria-labelledby="todo-list-heading">
           <h2 id="todo-list-heading">Задачи</h2>
           <TodoSearch
             searchText={searchText}
             onSearchTextChange={handleSearchTextChange}
           />
-          <TodoList
-            todos={visibleTodos}
-            onToggleTodo={toggleTodo}
-            onDeleteTodo={deleteTask}
-            onDuplicateTodo={duplicateTodo}
-            onToggleTodoPriority={toggleTodoPriority}
-          />
+          {isLoadingSuccess &&      
+            (<TodoList
+              todos={visibleTodos}
+              onToggleTodo={toggleTodo}
+              onDeleteTodo={deleteTask}
+              onDuplicateTodo={duplicateTodo}
+              onToggleTodoPriority={toggleTodoPriority}
+              isMutationRunning={isMutationRunning}
+            />)
+          }
         </section>
       </TodoLayout>
     </ThemeContext>

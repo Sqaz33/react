@@ -6,15 +6,13 @@ function TodoHeader({
   nextTodo, 
   hasCompletedTodos, 
   areAllTodosCompleted, 
-  isSaving, 
-  saveMessage,
-  isSaveError,
-  onSaveTodos,
   isOnline,
   onClearCompletedTodos,
-  apiMessage,
-  isApiError,
-  isDeletingCompleted
+  loadingMessage,
+  isLoadingError,
+  isMutationRunning,
+  mutationMessage,
+  isMutationError
 }) {
   const {theme, toggleTheme} = useTheme()
 
@@ -50,16 +48,9 @@ function TodoHeader({
       </p>
       {areAllTodosCompleted && (<p aria-live="polite">Все задачи завершены</p>)}
       <div className="todo-header-actions">
-        <button
-          onClick={onSaveTodos}
-          disabled={isSaving}
-          type="button"
-        >
-          {isSaving ? "Сохранение..." : "Сохранить"}
-        </button>
         <button 
           onClick={onClearCompletedTodos}
-          disabled={!hasCompletedTodos || isDeletingCompleted}
+          disabled={!hasCompletedTodos || isMutationRunning}
           type="button"
         >
           Удалить выполненные
@@ -72,20 +63,20 @@ function TodoHeader({
           Тёмная тема
         </button>
       </div>
-      {saveMessage && (
+      {loadingMessage && (
         <span
-          className={"save-message" + (isSaveError ? " error" : "")}
-          role={isSaveError ? "alert" : "status"}
+          className={"api-message" + (isLoadingError ? " error" : "")}
+          role={isLoadingError ? "alert" : "status"}
         >
-          {saveMessage}
+          {loadingMessage}
         </span>
       )}
-      {apiMessage && (
+      {mutationMessage && (
         <span
-          className={"api-message" + (isApiError ? " error" : "")}
-          role={isApiError ? "alert" : "status"}
+          className={"api-message" + (isMutationError ? " error" : "")}
+          role={isMutationError ? "alert" : "status"}
         >
-          {apiMessage}
+          {mutationMessage}
         </span>
       )}
     </header>

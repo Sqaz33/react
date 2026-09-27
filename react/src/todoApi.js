@@ -54,3 +54,21 @@ export async function deleteTodo(id) {
      throw new Error(`HTTP error: ${response.status}`)
   }
 }
+
+export async function putTodo(todo) {
+  const {id, ...todoData} = todo
+  const requestOptions = {
+    method: "PUT",
+    headers: {
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify(todoData)
+  }
+  const response = await fetch(`${URL}/todos/${id}`, requestOptions)
+
+  if (!response.ok) {
+     throw new Error(`HTTP error: ${response.status}`)
+  }
+
+  return response.json()
+}

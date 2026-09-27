@@ -1,6 +1,6 @@
 import { useState, useRef } from "react"
 
-function TodoForm({onAddTodo}) {
+function TodoForm({onAddTodo, isLoadingRunning, isMutationRunning}) {
   const [title, setTitle] = useState('')
   const inputRef = useRef(null)
   
@@ -25,8 +25,14 @@ function TodoForm({onAddTodo}) {
         placeholder="Задача"
         id="todo-input"
         ref={inputRef}
+        disabled={isLoadingRunning || isMutationRunning}
       />
-      <button type="submit">+</button>
+      <button 
+        type="submit"
+        disabled={isLoadingRunning || isMutationRunning}
+      >
+        +
+      </button>
     </form>
   )
 }

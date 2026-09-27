@@ -3,29 +3,30 @@ import {
 	useRef, 
 	useState, 
 	useReducer } from "react"
-import { apiActionTypes} from "./apiReducer"
+import { apiActionTypes } from "./apiReducer"
 import {
   getTodos,
   postTodo,
   patchTodo,
-  deleteTodo
+  deleteTodo,
 } from "./todoApi"
 import { getNextPriority } from "./priority"
 import {
   initialApiStatus,
-  apiReducer,
+  createApiReducer,
 } from "./apiReducer"
 
-const initialTodos = [
-	{ id: 3, title: 'Научиться работать со state', completed: false, details: { priority: "low" } },
-	{ id: 2, title: 'Разобраться с props', completed: false, details: { priority: "normal" } },
-	{ id: 1, title: 'Изучить JSX1234', completed: true, details: { priority: "high" } },
-]
+// const initialTodos = [
+// 	{ id: 3, title: 'Научиться работать со state', completed: false, details: { priority: "low" } },
+// 	{ id: 2, title: 'Разобраться с props', completed: false, details: { priority: "normal" } },
+// 	{ id: 1, title: 'Изучить JSX1234', completed: true, details: { priority: "high" } },
+// ]
 
 export default function useTodos() {
 	const lastRequestId = useRef(0)	
-	const [todos, setTodos] = useState(initialTodos)
-	const [apiState, dispatchApi] = useReducer(apiReducer, initialApiStatus)
+	const [todos, setTodos] = useState([])
+	const [mutationState, dispatchMutation] = useReducer(createApiReducer(true), initialApiStatus)
+	const [loadState, dispatchLoad] = useReducer(createApiReducer(), initialApiStatus)
 
 	async function addTodo(
 		title,
@@ -38,16 +39,16 @@ export default function useTodos() {
 			details: {priority}
 		}
 		try {
-			dispatchApi({
+			dispatchMutation({
 				type: apiActionTypes.started
 			})
 			const createdTodo = await postTodo(todoData)
-			dispatchApi({
+			dispatchMutation({
 				type: apiActionTypes.succeeded
 			})
 			setTodos(curTodos => [...curTodos, createdTodo])
 		} catch (error) {
-			dispatchApi({
+			dispatchMutation({
 				type: apiActionTypes.failed,
 				payload: {
 					message: error.message
@@ -60,14 +61,14 @@ export default function useTodos() {
 	async function toggleTodo(id) {
 		try {
 			const curTodo = todos.find(todo => todo.id === id)
-			dispatchApi({
+			dispatchMutation({
 				type: apiActionTypes.started
 			})
 			const patchedTodo = await patchTodo(
 				id,
 				{completed: !curTodo.completed}
 			)
-			dispatchApi({
+			dispatchMutation({
 				type: apiActionTypes.succeeded
 			})
 			setTodos(
@@ -77,7 +78,7 @@ export default function useTodos() {
 						todo
 			))
 		} catch(error) {
-			dispatchApi({
+			dispatchMutation({
 				type: apiActionTypes.failed,
 				payload: {
 					message: error.message
@@ -91,14 +92,14 @@ export default function useTodos() {
 		try {
 			const curTodo = todos.find(todo => todo.id === id)
 			const nextPriority = getNextPriority(curTodo.details.priority)
-			dispatchApi({
+			dispatchMutation({
 				type: apiActionTypes.started
 			})
 			const patchedTodo = await patchTodo(
 				id,
 				{details: {priority: nextPriority}}
 			)
-			dispatchApi({
+			dispatchMutation({
 				type: apiActionTypes.succeeded
 			})
 			setTodos(
@@ -108,7 +109,7 @@ export default function useTodos() {
 						todo
 			))
 		} catch(error) {
-			dispatchApi({
+			dispatchMutation({
 				type: apiActionTypes.failed,
 				payload: {
 					message: error.message
@@ -118,20 +119,59 @@ export default function useTodos() {
 		}
 	}
 
-	async function deleteTask(id) {
+	async function deleteTask(id, isExternalDispatch = false) {
 		try {
-			dispatchApi({
-				type: apiActionTypes.started
-			})
+			if (!isExternalDispatch) {
+				dispatchMutation({
+					type: apiActionTypes.started
+				})
+			}
 			await deleteTodo(id)
-			dispatchApi({
-				type: apiActionTypes.succeeded
-			})
+			if (!isExternalDispatch) {
+				dispatchMutation({
+					type: apiActionTypes.succeeded
+				})
+			}
 			setTodos(
 				curTodos => curTodos.filter(todo => todo.id !== id)
 			)
 		} catch(error) {
-			dispatchApi({
+			if (!isExternalDispatch) {
+				dispatchMutation({
+					type: apiActionTypes.failed,
+					payload: {
+						message: error.message
+					}
+				})
+				console.log(error.message)
+			} else {
+				throw error
+			}
+		}
+	}
+
+	async function duplicateTodo(id) {
+    const found = todos.find(todo => todo.id == id)
+    const title = found.title + " (копия)"
+    await addTodo(title, found.completed, found.details.priority)
+  }
+
+  async function clearCompletedTodos() { 
+		try {
+			dispatchMutation({
+				type: apiActionTypes.started
+			})
+			const completed = todos
+				.filter(todo => todo.completed)
+				.map(todo => todo.id)
+			for (const id of completed) {
+				await deleteTask(id, true)
+			}
+			dispatchMutation({
+				type: apiActionTypes.succeeded
+			})
+		} catch(error) {
+			dispatchMutation({
 				type: apiActionTypes.failed,
 				payload: {
 					message: error.message
@@ -145,16 +185,17 @@ export default function useTodos() {
 		const controller = new AbortController()
 
 		async function loadTodos() {
-			const curRequestId = lastRequestId.current
 			try {
-				dispatchApi({
+				dispatchLoad({
 					type: apiActionTypes.started
 				})
+				lastRequestId.current++
+				const requestId = lastRequestId.current
 				const todos = await getTodos({signal: controller.signal})
-				if (lastRequestId.current !== curRequestId) {
+				if (lastRequestId.current !== requestId) {
 					return
 				}
-				dispatchApi({
+				dispatchLoad({
 					type: apiActionTypes.succeeded
 				})
 				setTodos(todos)
@@ -162,7 +203,7 @@ export default function useTodos() {
 				if (error.name === "AbortError") {
 					return
 				}
-				dispatchApi({
+				dispatchLoad({
 					type: apiActionTypes.failed,
 					payload: {
 						message: error.message
@@ -174,17 +215,19 @@ export default function useTodos() {
 		loadTodos()
 		return () => {
 			controller.abort()
-			lastRequestId.current++
 		}
 	}, [])
 
   return {
     todos,
-    apiState,
+    loadState,
+		mutationState,
 
     addTodo,
     toggleTodo,
     toggleTodoPriority,
     deleteTask,
+		duplicateTodo,
+		clearCompletedTodos
   }
 }

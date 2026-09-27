@@ -1,12 +1,12 @@
-export const apiStateStatuses = {
+export const apiStatuses = {
   idle: "idle",
-  loading: "loading",
+  running: "running",
   success: "success",
   error: "error"
 }
 
 export const initialApiStatus = {
-  status: apiStateStatuses.idle,
+  status: apiStatuses.idle,
   message: ""
 }
 
@@ -16,24 +16,26 @@ export const apiActionTypes = {
   failed: "api/failed"
 }
 
-export function apiReducer(state, action) {
-  switch (action.type) {
-    case apiActionTypes.started:
-      return { 
-        status: apiStateStatuses.loading, 
-        message: "Синхронизация с сервером" 
-      }
-    case apiActionTypes.succeeded:
-      return { 
-        status: apiStateStatuses.success, 
-        message: `Список задач синхронизирован с сервером`
-      }
-    case apiActionTypes.failed:
-      return { 
-        status: apiStateStatuses.error, 
-        message: action.payload.message
-      }
-    default:
-      return state
-  }
+export function createApiReducer(isMutation = false) {
+  return (state, action) => {
+    switch (action.type) {
+      case apiActionTypes.started:
+        return { 
+          status: apiStatuses.running, 
+          message: (isMutation ? "Синхронизация" : "Получение данных") 
+        }
+      case apiActionTypes.succeeded:
+        return { 
+          status: apiStatuses.success, 
+          message: (isMutation ? "Список задач синхронизирован" : "Данные получены")  
+        }
+      case apiActionTypes.failed:
+        return { 
+          status: apiStatuses.error, 
+          message: action.payload.message
+        }
+      default:
+        return state
+    }
+  } 
 }

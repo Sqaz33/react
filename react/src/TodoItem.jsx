@@ -8,27 +8,37 @@ const PriorityButton = styled.button`
   min-width: 150px;
 `
 
-function TodoItem({item, onToggleTodo, onDeleteTodo, onDuplicateTodo, onToggleTodoPriority}) {
+function TodoItem({
+  item, 
+  onToggleTodo, 
+  onDeleteTodo, 
+  onDuplicateTodo, 
+  onToggleTodoPriority,
+  isMutationRunning}
+) {
   return (
     <li className="todo-item">
       <label className="todo-toggle">
         <input
           type="checkbox"
           checked={item.completed}
+          disabled={isMutationRunning}
           onChange={() => onToggleTodo(item.id)}
         />
         <TodoContent item={item} />
       </label>
       <div className="todo-actions">
         <button
-          onClick={() => onDeleteTodo(item.id)}
           type="button"
+          onClick={() => onDeleteTodo(item.id)}
+          disabled={isMutationRunning}
           aria-label="Удалить"
         >
           X
         </button>
         <button
           onClick={() => onDuplicateTodo(item.id)}
+          disabled={isMutationRunning}
           type="button"
         >
           Дублировать
@@ -36,6 +46,7 @@ function TodoItem({item, onToggleTodo, onDeleteTodo, onDuplicateTodo, onToggleTo
         <PriorityButton
           onClick={() => onToggleTodoPriority(item.id)}
           type="button"
+          disabled={isMutationRunning}
           $important={item.details.priority === "high"}
         >
           Приоритет: {PRIORITY_LABELS[item.details.priority] ?? "неизвестный"}
