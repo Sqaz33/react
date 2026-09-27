@@ -3,7 +3,6 @@ function TodoSearch({searchText, onSearchTextChange}) {
     <div className="todo-search">
       <label htmlFor="search">Поиск</label>
       <input
-         
         type="search" 
         id="search" 
         placeholder="Купить"

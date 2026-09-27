@@ -1,12 +1,12 @@
 import TodoHeader from "../TodoHeader"
 import TodoForm from "../TodoForm"
 import TodoList from "../TodoList"
-import { useMemo, useState } from "react"
+import { useMemo } from "react"
 import TodoSearch from "../TodoSearch"
 import useDebouncedValue from "../useDebouncedValue"
 import useOnlineStatus from "../useOnlineStatus"
 import { apiStatuses } from "../apiReducer"
-import { useOutletContext } from "react-router"
+import { useOutletContext, useSearchParams } from "react-router"
 
 function TodoPage() {
   const { 
@@ -22,7 +22,8 @@ function TodoPage() {
     clearCompletedTodos} = useOutletContext()
 
   const isOnline = useOnlineStatus()
-  const [searchText, setSearchText] = useState("")
+  const [searchParams, setSearchParams] = useSearchParams()
+  const searchText = searchParams.get("q") ?? ""
   const debouncedSearchText = useDebouncedValue(searchText, 400)
 
   const totalCount = todos.length
@@ -51,7 +52,13 @@ function TodoPage() {
 
   // const delayedSearch = debounce()
   function handleSearchTextChange(text) {
-    setSearchText(text)
+    const nextParams = new URLSearchParams(searchParams)
+    if (text === "") {
+      nextParams.delete("q")
+    } else {
+      nextParams.set("q", text)
+    }
+    setSearchParams(nextParams, { replace: true})
   }
 
   const isLoadingRunning = loadState.status === apiStatuses.running

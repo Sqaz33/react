@@ -4,9 +4,9 @@ import { PRIORITY_LABELS } from "../priority"
 
 function TodoDetailsPage() {
   const {todos, loadState} = useOutletContext()
+  const {todoId} = useParams()
   const isLoadingSuccess = loadState.status === apiStatuses.success
   const isError = loadState.status === apiStatuses.error
-  const {todoId} = useParams()
 
   if (isLoadingSuccess) {
     const found = todos.find(todo => todo.id === todoId)

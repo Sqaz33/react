@@ -5,7 +5,7 @@
 ## Текущий статус
 
 - Текущий модуль: **7. Маршрутизация и состояние приложения**.
-- Текущий урок: **начат query string и `useSearchParams`**.
+- Текущий урок: **query string и `useSearchParams` приняты; далее 404 и навигация**.
 - Состояние проекта: Vite-приложение находится в `D:\react\react`; CRUD через
   локальный JSON Server реализован. Сетевой слой разделён на `App`, `useTodos`
   и `todoApi`; production-сборка и lint проходят.
@@ -106,6 +106,12 @@
   `/todos` к `/todos/:todoId` без полной перезагрузки документа.
 - Страница задачи различает loading, network error, resource not found и
   success; успешные данные размечены через `article`, `h1` и description list.
+- Поиск списка использует URL-параметр `q` как единственный источник истины:
+  controlled input восстанавливается после refresh, а debounce применяется к
+  уже прочитанному из URL значению.
+- Обновление query string копирует текущий `URLSearchParams`, поэтому не удаляет
+  независимые параметры; пустое значение удаляет `q`, а `replace` не засоряет
+  browser history промежуточными буквами.
 
 ## Требует внимания
 
@@ -135,11 +141,26 @@
 
 ## Следующее действие
 
-Заменить локальный `searchText` в `TodoPage` на параметр `q` из
-`useSearchParams`: ввод должен обновлять URL с `replace`, пустая строка должна
-удалять `q`, а остальные параметры URL должны сохраняться.
+Разобрать различие route 404 и resource not found, активные ссылки через
+`NavLink` и программную навигацию через `useNavigate`; затем улучшить текущую
+навигацию и 404-сценарии проекта.
 
 ## Журнал занятий
+
+### 2026-09-28 — query string и `useSearchParams` приняты
+
+- Локальный `useState` поиска удалён; `searchText` вычисляется через
+  `searchParams.get("q") ?? ""`, поэтому URL является единственным источником
+  истины.
+- Обработчик создаёт копию текущего `URLSearchParams`, устанавливает или удаляет
+  `q` и вызывает `setSearchParams` с `{ replace: true }`.
+- Исправлена попытка присвоить новое значение вычисляемой `const searchText`:
+  изменение выполняет setter router, после navigation значение заново читается
+  из URL при рендере.
+- Проверены прямое открытие `/todos?q=state`, controlled input, debounce,
+  удаление пустого `q` и сохранение независимого `status=active`.
+- `TodoSearch` сохраняет корректные `label`, `type="search"` и controlled
+  контракт; `npm run lint` и `npm run build` проходят.
 
 ### 2026-09-28 — начат query string и `useSearchParams`
 
